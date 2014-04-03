@@ -7,7 +7,7 @@ ru:
   backlogs_burndown_print_width: "Ширина графика выполнения"
   backlogs_burndown_settings: "Настройки графика выполнения"
   backlogs_card_specification: "Тип заголовков для печати карт"
-  backlogs_default_story_tracker: "Default story tracker"
+  backlogs_default_story_tracker: "Трекер истории по умолчанию"
   backlogs_general_settings: "Общие настройки"
   backlogs_impediment: Задержка
   backlogs_include_sat_and_sun: "Включать субботу и воскресенье в график выполнения"
@@ -18,17 +18,17 @@ ru:
   backlogs_pblpage_settings: "Настройка страницы бэклога продукта"
   backlogs_points_burn_direction: "Баллов выполнено/осталось"
   backlogs_product_backlog: "Бэклог продукта"
-  backlogs_scrum_stats_menu_application: "Application menu"
-  backlogs_scrum_stats_menu_none: None
-  backlogs_scrum_stats_menu_position: "Position of Scrum Statistics menu"
-  backlogs_scrum_stats_menu_top: "Top menu"
+  backlogs_scrum_stats_menu_application: "Меню приложения"
+  backlogs_scrum_stats_menu_none: Никакой
+  backlogs_scrum_stats_menu_position: "Положение меню: Скрам-статистика"
+  backlogs_scrum_stats_menu_top: "Верхнее меню"
   backlogs_set_start_and_duedates_from_sprint: "Установить дату начала и окончания истории из спринта"
   backlogs_sharing_enabled: "Разрешить совместное использование"
   backlogs_sharing_new_sprint: "Использовать совместно новые спринты"
   backlogs_sharing_new_sprint_explanation: "Несмотря на то, что все возможные опции доступны здесь, новые спринты могут совместно использоваться только в соответствии с правами пользователей и разрешениями проектов. Используемые совместно на уровне системы спринты могут быть созданы только админами. Спринты, используемые совместно на уровне иерархии или дерева требуют разрешений на проекте верхнего уровня."
   backlogs_sharing_support: "Совместное использование бэклогов"
   backlogs_show_in_scrum_stats: "Показывать проект в Скрам-статистике"
-  backlogs_show_priority: "Show task priority on taskboard"
+  backlogs_show_priority: "Показывать приоритет задачи на доске задач"
   backlogs_show_redmine_std_header: "Показывать заголовок трекера в бэклогах"
   backlogs_show_stories_from_subprojects_in_backlog: "Показывать в бэклоге истории из подпроектов"
   backlogs_sprint_card_settings: "Печать карт спринта"
@@ -92,7 +92,7 @@ ru:
   field_base: ""
   field_blocks: Блокировки
   field_name: Название
-  field_planned_velocity: "Planned velocity"
+  field_planned_velocity: "Запланированная скорость"
   field_position: Положение
   field_priority: Приоритет
   field_project_id: "Идентификатор проекта"

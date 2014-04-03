@@ -35,7 +35,11 @@ See RB.Taskboard.initialize()
   width:105px; /* Must be the same as min-width */
 }
 
-#taskboard { position: relative; } /*for fixed header*/
+#taskboard { 
+  position: relative;
+  overflow: scroll;   
+}
+/*for fixed header*/
 #impediments { padding-top: 40px; }
 /* status labels */
 #board_header{
