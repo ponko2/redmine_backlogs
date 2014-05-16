@@ -41,7 +41,7 @@ object_to_prepare.to_prepare do
 
   require_dependency 'backlogs_merged_array'
 
-  require_dependency 'backlogs_printable_cards'
+#  require_dependency 'backlogs_printable_cards'
   require_dependency 'linear_regression'
 
   Redmine::AccessControl.permission(:manage_versions).actions << "rb_sprints/close_completed"
