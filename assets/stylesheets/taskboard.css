@@ -57,7 +57,7 @@ See RB.Taskboard.initialize()
   filter:progid:DXImageTransform.Microsoft.Gradient(Enabled=1,GradientType=0,StartColorStr=#FFFFFF,EndColorStr=#DDDDDD);
   border-right:1px dotted #CFCFCF;
   color:#4E4E4E;
-  font-size:14px;
+  #font-size:14px;
   font-weight:bold;
   height:30px;
   text-align:center;
@@ -399,4 +399,12 @@ See RB.Taskboard.initialize()
 }
 #ui-datepicker-div{
   display: none;
+}
+
+#sidebar {
+    display: none;
+}
+
+#hideSidebarButton {
+    display: none;
 }

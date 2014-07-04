@@ -85,11 +85,8 @@ RB.$(function(){
 </div>
 <% end %>
 
-  <div id="main" class="rb-main rb-theme-default <%= sidebar_content? ? '' : 'nosidebar' %>">
-    <div id="sidebar">
-        <%= yield :sidebar %>
-        <%= view_layouts_base_sidebar_hook_response %>
-    </div>
+  <div id="main" class="rb-main rb-theme-default nosidebar">
+
 
     <div id="content">
       <%= render_flash_messages %>

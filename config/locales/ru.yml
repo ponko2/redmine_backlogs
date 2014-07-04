@@ -162,7 +162,7 @@ ru:
   label_release_start_date: "Дата начала релиза"
   label_release_trend_end_date: "Trend estimated end date"
   label_reset: Сбросить
-  label_scrum_statistics: Скрам-статистика
+  label_scrum_statistics: Скрам-стат.
   label_select_all: "Выбрать все"
   label_show_completed_sprints: "Показать выполненные спринты"
   label_sprint_backlog: "бэклог спринта"
