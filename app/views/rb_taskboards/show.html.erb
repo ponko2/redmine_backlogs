@@ -103,7 +103,12 @@
   <input name="col_width" type="hidden"/>
   <a id="disable_autorefresh">Disable Auto-refresh</a>
   <a id="refresh">Refresh</a>  
-
+  <%- if cookies[:memes] == '1'%>
+    <a href="?memes=0"><%= l(:turn_off_memes) %> </a>   
+  <%- else%>
+    <a href="?memes=1"><%= l(:turn_on_memes) %> (Beta) </a>   
+  <%- end%>
+  
 <%- end %>
 
 <%- content_for :main do %>
