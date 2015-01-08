@@ -70,7 +70,14 @@ module BacklogsPlugin
             <script type="text/javascript">
               var $j = RB.$ || $;
               $j(function($) {
-                $('#backlogs_view_issues_sidebar').load('#{url}');
+                $.ajax({
+                    url    : '#{url}',
+                    global : false,
+                    success: function(response)
+                    {
+                      $('#backlogs_view_issues_sidebar').html(response);
+                    }
+                });
               });
             </script>
           }
