@@ -57,7 +57,7 @@ pl:
   backlogs_statistics_sprints_sized: "Otwarte lub niedawno zamknięte sprinty były oszacowane"
   backlogs_statistics_sprints_sized_failed: "Projekt ma historyjki na otwartych lub niedawno zamkniętych sprintach, które nie były oszacowane"
   backlogs_statistics_velocity: "Szybkość: %{value}"
-  backlogs_statistics_velocity_stddev: "Odchylenie standardowe szybkości: %{value} punkty(ów)"
+  backlogs_statistics_velocity_stddev: "Odchylenie standardowe prędkości: %{value} punkty(ów)"
   backlogs_statistics_yield: "Projekt ma dobrą średnią wydajność"
   backlogs_statistics_yield_failed: "Projekt ma niską średnią wydajność"
   backlogs_story: Historyjka
@@ -92,7 +92,7 @@ pl:
   field_base: ""
   field_blocks: Bloki
   field_name: Nazwa
-  field_planned_velocity: "Planowana szybkość"
+  field_planned_velocity: "Planowana prędkość"
   field_position: Pozycja
   field_priority: Priorytet
   field_project_id: "Id projektu"
@@ -109,7 +109,7 @@ pl:
   field_time_entry_spend_on: "Time Entry Spend on"
   field_time_entry_user_id: "Time Entry User Id"
   field_tracker_id: "Typ zagadnienia"
-  field_velocity_based_estimate: "Szacunki na podstawie prędkości"
+  field_velocity_based_estimate: "Oszacowanie wg prędkości"
   label_all_tasks: "Wszystkie zadania"
   label_back_to_project: "Wróć na stronę projektu"
   label_backlogs: Backlog
@@ -125,7 +125,7 @@ pl:
   label_hide_completed_sprints: "Ukryj zakończone sprinty"
   label_hours: godziny
   label_hours_remaining: "pozostałe godziny"
-  label_hours_required_burn_rate: "wymagana szybkość wypalania (godziny)"
+  label_hours_required_burn_rate: "wymagana prędkość wypalania (godziny)"
   label_ideal: ideał
   label_impediments: Przeszkody
   label_master_backlog: "Główny backlog"
@@ -143,7 +143,7 @@ pl:
   label_points_burn_down: W dół
   label_points_burn_up: W górę
   label_points_committed: "punkty dostarczone"
-  label_points_required_burn_rate: "wymagana szybkość wypalania (punkty)"
+  label_points_required_burn_rate: "wymagana prędkość wypalania (punkty)"
   label_points_resolved: "punkty rozwiązane"
   label_points_to_accept: "punkty nie zaakceptowane"
   label_points_to_resolve: "punkty nie rozwiązane"
