@@ -164,7 +164,7 @@ pl:
   label_reset: Reset
   label_scrum_statistics: "Statystyki Scrum"
   label_select_all: "Zaznacz wszystko"
-  label_show_completed_sprints: "Pokaz zamknięte sprinty"
+  label_show_completed_sprints: "Pokaż zamknięte sprinty"
   label_sprint_backlog: "Backlog sprintu"
   label_sprint_cards: "Karty sprintu"
   label_sprint_impediments: "Przeszkody sprintu"

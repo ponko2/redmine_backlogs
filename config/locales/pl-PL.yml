@@ -97,9 +97,9 @@ pl:
   field_priority: Priorytet
   field_project_id: "Id projektu"
   field_release: Wydanie
-  field_release_end_date: "Data końcowa dla wydania"
+  field_release_end_date: "Data oddania"
   field_release_relationship: "Relacja z wydaniem"
-  field_release_start_date: "Data startowa dla wydania"
+  field_release_start_date: "Data rozpoczęcia"
   field_remaining_hours: "Pozostałe (godziny)"
   field_story_points: "Punkty historyjki"
   field_subject: Temat
@@ -164,7 +164,7 @@ pl:
   label_reset: Reset
   label_scrum_statistics: "Statystyki Scrum"
   label_select_all: "Zaznacz wszystko"
-  label_show_completed_sprints: "Pokaz zamknięte sprinty"
+  label_show_completed_sprints: "Pokaż zamknięte sprinty"
   label_sprint_backlog: "Backlog sprintu"
   label_sprint_cards: "Karty sprintu"
   label_sprint_impediments: "Przeszkody sprintu"
