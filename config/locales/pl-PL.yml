@@ -90,7 +90,7 @@ pl:
   field_assigned_to: "Przypisany do"
   field_backlogs_issue_type: "Typ backlogowy"
   field_base: ""
-  field_blocks: Bloki
+  field_blocks: Blokuje
   field_name: Nazwa
   field_planned_velocity: "Planowana prędkość"
   field_position: Pozycja
