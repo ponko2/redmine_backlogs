@@ -97,9 +97,10 @@ pl:
   field_priority: Priorytet
   field_project_id: "Id projektu"
   field_release: Wydanie
-  field_release_end_date: "Data końcowa dla wydania"
+  field_release_ids: Wydania
+  field_release_end_date: "Data oddania"
   field_release_relationship: "Relacja z wydaniem"
-  field_release_start_date: "Data startowa dla wydania"
+  field_release_start_date: "Data rozpoczęcia"
   field_remaining_hours: "Pozostałe (godziny)"
   field_story_points: "Punkty historyjki"
   field_subject: Temat
@@ -150,7 +151,9 @@ pl:
   label_product_backlog: "Backlog produktu"
   label_product_cards: "Karty backlogu produktu"
   label_release: Wydanie
-  label_release_end_date: field_release_start_date
+  label_release_end_date: "Data końca wydania"
+  label_release_multiview: "Zbiorczy widok wydań"
+  label_release_multiview_new: "Nowy zbiorczy widok wydań"
   label_release_new: "Nowe wydanie"
   label_release_planned_velocity_end_date: "Planned velocity estimated end date"
   label_release_planning: "Planowanie wydań"
@@ -169,6 +172,7 @@ pl:
   label_sprint_cards: "Karty sprintu"
   label_sprint_impediments: "Przeszkody sprintu"
   label_sprint_name: "Sprint \"%{name}\""
+  label_sprint_close: "Zamknij sprint"
   label_stories: Historyjki
   label_stories_tasks: Historyjki/zadania
   label_task_board: "Tablica zadań"
