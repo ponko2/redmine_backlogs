@@ -6,6 +6,11 @@ module RbServerVariablesHelper
   #
   #   workflow_transitions(RbStory)
   def workflow_transitions(klass)
+
+     # cache on user.id and project.id
+     cachekey = "allowedstatus/" + @project.identifier + "/" + User.current.login
+     Rails.cache.fetch(cachekey, expires_in: 30.minutes) do
+
      default_status = IssueStatus.default
      default_status = default_status.id.to_s if default_status
      roles = User.current.admin ? Role.all : User.current.roles_for_project(@project)
@@ -44,5 +49,6 @@ module RbServerVariablesHelper
       }
      }
      transitions
+     end
    end
 end
