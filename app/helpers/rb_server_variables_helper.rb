@@ -1,15 +1,32 @@
 module RbServerVariablesHelper
   unloadable
 
+  def workflow_transitions(klass) 
+   
+    # cache on user.id and project.id
+    cachekey = "transitions/" + @project.identifier + "/" + User.current.login
+
+    if Backlogs.setting[:caching_enabled] && Backlogs.setting[:cache_minutes]
+
+      cachetime = Backlogs.setting[:cache_minutes].to_i
+      Rails.cache.fetch(cachekey, expires_in: cachetime.minutes) do
+        calculate_workflow_transitions(klass)
+      end
+    else
+      # caching is turned off - remove any previous cache while we are here
+      Rails.cache.delete(cachekey) 
+
+      # call the regular method uncached
+      calculate_workflow_transitions(klass)
+    end
+
+  end
+
   # Calculates workflow transitions matrix.
   # Used to render server variables for javascript DnD handling
   #
   #   workflow_transitions(RbStory)
-  def workflow_transitions(klass)
-
-     # cache on user.id and project.id
-     cachekey = "allowedstatus/" + @project.identifier + "/" + User.current.login
-     Rails.cache.fetch(cachekey, expires_in: 30.minutes) do
+  def calculate_workflow_transitions(klass)
 
      default_status = IssueStatus.default
      default_status = default_status.id.to_s if default_status
@@ -50,5 +67,4 @@ module RbServerVariablesHelper
      }
      transitions
      end
-   end
 end

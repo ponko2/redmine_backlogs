@@ -307,3 +307,28 @@
     %><span style="margin-left: 12px;"><%= l(:backlogs_sharing_new_sprint_explanation) %></span>
   </p>
 </fieldset>
+<fieldset>
+  <legend><%= l(:backlogs_caching_options) %></legend>
+  <p>
+  <%= l(:backlogs_caching_desc) %>
+ </p>
+  <p>
+    <%= content_tag(:label, l(:backlogs_enable_caching)) %>
+    <%= check_box_tag("settings[caching_enabled]", 'enabled',
+        Backlogs.setting[:caching_enabled]) %>
+  </p>
+  <p>
+    <%= content_tag(:label, l(:backlogs_cache_minutes)) %>
+    <%= select_tag("settings[cache_minutes]",
+              options_for_select([
+                      ['1 minute', '1'],
+                      ['10 minutes', '10'],
+                      ['1 hour', '60'],
+                      ['4 hours', '240'],
+                      ['8 hours', '480'],
+                      ['12 hours', '720'],
+                      ['24 hours', '1440'],
+                  ], Backlogs.setting[:cache_minutes])) %>
+  </p>
+
+</fieldset>
