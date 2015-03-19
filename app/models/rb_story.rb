@@ -214,7 +214,7 @@ class RbStory < Issue
   end
 
   def self.has_settings_table
-    ActiveRecord::Base.connection.tables.include?('settings')
+    ActiveRecord::Base.connection.table_exists?('settings')
   end
 
   def tasks
