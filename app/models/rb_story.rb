@@ -213,6 +213,12 @@ class RbStory < Issue
     end
   end
 
+  def self.trackers_include?(tracker_id)
+    tracker_ids = Backlogs.setting[:story_trackers] || []
+    tracker_ids = tracker_ids.map(&:to_i)
+    tracker_ids.include?(tracker_id.to_i)
+  end
+
   def self.has_settings_table
     ActiveRecord::Base.connection.table_exists?('settings')
   end
