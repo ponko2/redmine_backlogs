@@ -110,6 +110,7 @@ ru:
   field_time_entry_user_id: "Автор списания"
   field_tracker_id: "Идентификатор трекера"
   field_velocity_based_estimate: "Оценка на основе скорости"
+  field_total_spent_hours: "Всего затрачено времени"
   label_all_tasks: "Все задачи"
   label_back_to_project: "Назад на страницу проекта"
   label_backlogs: Бэклоги

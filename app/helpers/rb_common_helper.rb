@@ -16,9 +16,9 @@ module RbCommonHelper
 
   def status_pic_or_empty(status)
     status.blank? ? "" : (
-        FileTest.exist?("#{Rails.root}/public/images/#{status.name}.jpg") ?
-      image_tag("#{status.name}.jpg",  
-          :width => 80, :heigth => 80) : "")
+    FileTest.exist?("#{Rails.root}/public/images/#{status.name}.jpg") ?
+        image_tag("#{status.name}.jpg",
+                  :width => 80, :heigth => 80) : "")
 
   end
 
@@ -27,7 +27,7 @@ module RbCommonHelper
   end
 
   def blocked_ids(blocked)
-    blocked.map{|b| b.id }.join(',')
+    blocked.map { |b| b.id }.join(',')
   end
 
   def build_inline_style(task)
@@ -148,7 +148,7 @@ filter:progid:DXImageTransform.Microsoft.Gradient(Enabled=1,GradientType=0,Start
   def custom_fields_or_empty(story)
     return '' if story.new_record?
     res = ''
-    story.custom_field_values.each{|value|
+    story.custom_field_values.each { |value|
       res += "<p><b>#{h(value.custom_field.name)}</b>: #{simple_format_without_paragraph(h(show_value(value)))}</p>"
     }
     res.html_safe
@@ -166,7 +166,7 @@ filter:progid:DXImageTransform.Microsoft.Gradient(Enabled=1,GradientType=0,Start
   def date_string(d)
     return '' if d.blank?
     d.strftime("%B %d, %Y")
-  end  
+  end
 
   def string_date(s)
     Date.strptime(s, "%B %d, %Y")
@@ -176,15 +176,20 @@ filter:progid:DXImageTransform.Microsoft.Gradient(Enabled=1,GradientType=0,Start
     item.remaining_hours.blank? || item.remaining_hours==0 ? "" : item.remaining_hours
   end
 
+  def spent_hours_or_empty(item)
+    item.total_spent_hours.blank? || item.total_spent_hours==0 ? "0" : item.total_spent_hours.round(1)
+  end
+
+
   def workdays(start_day, end_day)
-    return (start_day .. end_day).select {|d| (d.wday > 0 and d.wday < 6) }
+    return (start_day .. end_day).select { |d| (d.wday > 0 and d.wday < 6) }
   end
 
   def release_burndown_interpolate(release, day)
     initial_day = release.burndown.days[0]
     initial_points = release.burndown.remaining_story_points[0]
     day_diff = initial_points / (release.days.size - 1.0)
-    initial_points - ( (workdays(initial_day, day).size - 1) * day_diff )
+    initial_points - ((workdays(initial_day, day).size - 1) * day_diff)
   end
 
   def csv_encode(s)
@@ -204,21 +209,21 @@ filter:progid:DXImageTransform.Microsoft.Gradient(Enabled=1,GradientType=0,Start
 
     export = FCSV.generate(:col_sep => ';') do |csv|
       # csv header fields
-      headers = [ l(:label_points_backlog),
-                  l(:label_points_added),
-                  l(:label_points_accepted)
-                ]
-      csv << headers.collect {|c| csv_encode(c.to_s) }
+      headers = [l(:label_points_backlog),
+                 l(:label_points_added),
+                 l(:label_points_accepted)
+      ]
+      csv << headers.collect { |c| csv_encode(c.to_s) }
 
       bd = release.burndown
       lines = 0
       lines = bd[:added_points].size unless bd[:added_points].nil?
       for i in (0..(lines-1))
-        fields = [ bd[:added_points][i].to_s.gsub('.', ','),
-                   bd[:backlog_points][i].to_s.gsub('.', ','),
-                   bd[:closed_points][i].to_s.gsub('.', ',')
-                 ]
-        csv << fields.collect{ |c| csv_encode(c.to_s) }
+        fields = [bd[:added_points][i].to_s.gsub('.', ','),
+                  bd[:backlog_points][i].to_s.gsub('.', ','),
+                  bd[:closed_points][i].to_s.gsub('.', ',')
+        ]
+        csv << fields.collect { |c| csv_encode(c.to_s) }
       end
     end
     export
@@ -226,18 +231,18 @@ filter:progid:DXImageTransform.Microsoft.Gradient(Enabled=1,GradientType=0,Start
 
   def self.find_backlogs_enabled_active_projects
     projects = EnabledModule.find(:all,
-                             :conditions => ["enabled_modules.name = 'backlogs' and status = ?", Project::STATUS_ACTIVE],
-                             :include => :project,
-                             :joins => :project).collect { |mod| mod.project}
+                                  :conditions => ["enabled_modules.name = 'backlogs' and status = ?", Project::STATUS_ACTIVE],
+                                  :include => :project,
+                                  :joins => :project).collect { |mod| mod.project }
   end
 
   # Returns a collection of users allowed to log time for the current project. (see app/views/rb_taskboards/show.html.erb for usage)
   def users_allowed_to_log_on_task
-    @project.memberships.collect{|m|
+    @project.memberships.collect { |m|
       user = m.user
       roles = user ? user.roles_for_project(@project) : nil
-      roles && roles.detect {|role| role.member? && role.allowed_to?(:log_time)} ? [user.name, user.id] : nil
-    }.compact.insert(0,["",0]) # Add blank entry
+      roles && roles.detect { |role| role.member? && role.allowed_to?(:log_time) } ? [user.name, user.id] : nil
+    }.compact.insert(0, ["", 0]) # Add blank entry
   end
 
   def tidy(html)
@@ -267,25 +272,25 @@ filter:progid:DXImageTransform.Microsoft.Gradient(Enabled=1,GradientType=0,Start
   end
 
   def release_options_for_select(releases, selected=nil)
-    grouped = Hash.new {|h,k| h[k] = []}
+    grouped = Hash.new { |h, k| h[k] = [] }
     selected = [selected].compact unless selected.kind_of?(Array)
     releases.each do |release|
       grouped[release.project.name] << [release.name, release.id]
     end
     # Add in the selected
-    (selected - releases).each{|s| grouped[s.project.name] << [s.name, s.id] }
+    (selected - releases).each { |s| grouped[s.project.name] << [s.name, s.id] }
 
     if grouped.keys.size > 1
-      grouped_options_for_select(grouped, selected.collect{|s| s.id})
+      grouped_options_for_select(grouped, selected.collect { |s| s.id })
     else
-      options_for_select((grouped.values.first || []), selected.collect{|s| s.id})
+      options_for_select((grouped.values.first || []), selected.collect { |s| s.id })
     end
   end
 
   # Convert selected ids to integer and remove blank values.
   def selected_ids(options)
     return nil if options.nil?
-    options.collect{|o| o.to_i unless o.blank?}.compact! 
+    options.collect { |o| o.to_i unless o.blank? }.compact!
   end
 
   def format_release_sharing(v)
@@ -299,5 +304,14 @@ filter:progid:DXImageTransform.Microsoft.Gradient(Enabled=1,GradientType=0,Start
     else
       Redmine::Utils.relative_url_root #actionpack-3* is not???
     end
+  end
+
+
+  def select_swimline_style(status_name)
+    return 'swimlane1' if ['Reopened', 'Testing', 'Stopped', 'Not reproduce', 'Refusal', 'Feedback', 'Documentation'].include?(status_name)
+    return 'swimlane3' if %w(New Closed).include?(status_name)
+    return 'swimlane in_progress' if ['In Progress'].include?(status_name)
+
+    return 'swimlane'
   end
 end

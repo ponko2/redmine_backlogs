@@ -35,9 +35,26 @@ See RB.Taskboard.initialize()
   width:105px; /* Must be the same as min-width */
 }
 
+.swimlane3{
+  min-width:105px; /* width + (2*margin) + (2*padding) + (2*border) of .issue */
+  padding:5px;
+  width:105px; /* Must be the same as min-width */
+}
+
+.swimlane1{
+  min-width:105px; /* width + (2*margin) + (2*padding) + (2*border) of .issue */
+  padding:5px;
+  width:105px; /* Must be the same as min-width */
+}
+
+
+.in_progress{
+  background-color: #FFDCDA;
+}
+
 #taskboard { 
   position: relative;
-  overflow: scroll;   
+
 }
 /*for fixed header*/
 #impediments { padding-top: 40px; }
@@ -55,7 +72,7 @@ See RB.Taskboard.initialize()
   background: -webkit-gradient(linear, left top, left bottom, from(#FFF), to(#DDD));
   background: -moz-linear-gradient(top, #FFF, #DDD);
   filter:progid:DXImageTransform.Microsoft.Gradient(Enabled=1,GradientType=0,StartColorStr=#FFFFFF,EndColorStr=#DDDDDD);
-  border-right:1px dotted #CFCFCF;
+  border-right:1px solid #CFCFCF;
   color:#4E4E4E;
   #font-size:14px;
   font-weight:bold;
@@ -78,8 +95,8 @@ See RB.Taskboard.initialize()
   /* background-color:#ffffff; */
 }
 .board td{
-  border-right:1px dotted #CFCFCF;
-  border-bottom:1px dotted #CFCFCF;
+  border-right:1px solid #CFCFCF;
+  border-bottom:1px solid #CFCFCF;
   vertical-align:top;
 }
 
@@ -87,7 +104,7 @@ See RB.Taskboard.initialize()
 .board td:first-child{
   min-width:210px;
   padding:5px;
-  width:210px; 
+  width:210px;
 }
 .board td:last-child{
   border-right:none;
@@ -288,6 +305,42 @@ See RB.Taskboard.initialize()
   position:absolute;
   right:-5px;
 }
+
+.issue .spent_hours{
+    -moz-border-radius:15px 15px 15px 15px;
+    -webkit-border-radius:15px 15px 15px 15px;
+    border-radius:15px 15px 15px 15px;
+    border:2px solid #FFFFFF;
+    background-color: #7e1b1b;
+    bottom:-5px;
+    color:#FFFFFF;
+    font-size:9px;
+    height:13px;
+    padding-left:5px;
+    padding-right:5px;
+    position:absolute;
+    top: 4px;
+    height: 12px;
+}
+
+
+.story_spent_hours{
+  -moz-border-radius:15px 15px 15px 15px;
+  -webkit-border-radius:15px 15px 15px 15px;
+  border-radius:15px 15px 15px 15px;
+  border:2px solid #FFFFFF;
+  background-color: #7e1b1b;
+  bottom:-5px;
+  color:#FFFFFF;
+  font-size:9px;
+  height:13px;
+  padding-left:5px;
+  padding-right:5px;
+  position:absolute;
+  bottom: -5px;
+  left: -5px;
+}
+
 .issue .blocks{
   display:none;
 }
@@ -409,3 +462,6 @@ See RB.Taskboard.initialize()
 #hideSidebarButton {
     display: none;
 }
+
+
+

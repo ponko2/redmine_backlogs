@@ -111,6 +111,7 @@ en:
   field_time_entry_user_id: "Time Entry User Id"
   field_tracker_id: "Tracker ID"
   field_velocity_based_estimate: "Velocity based estimate"
+  field_total_spent_hours: "Total spent hours"
   label_all_tasks: "All tasks"
   label_back_to_project: "Back to project page"
   label_backlogs: Backlogs

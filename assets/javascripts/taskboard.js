@@ -16,7 +16,7 @@ RB.Taskboard = RB.Object.create({
 
     // Initialize column widths
     self.colWidthUnit = RB.$(".swimlane").width();
-    self.defaultColWidth = 2;  
+    self.defaultColWidth = 2;
     self.loadColWidthPreference();
     self.updateColWidths();   
     RB.$("#col_width input").bind('keyup', function(e){ if(e.which==13) self.updateColWidths(); });
@@ -209,6 +209,8 @@ RB.Taskboard = RB.Object.create({
     RB.$("#col_width input").val(w);
     RB.UserPreferences.set('taskboardColWidth', w);
     RB.$(".swimlane").width(this.colWidthUnit * w).css('min-width', this.colWidthUnit * w);
+    RB.$(".swimlane1").width(this.colWidthUnit).css('min-width', this.colWidthUnit);
+    RB.$(".swimlane3").width(this.colWidthUnit * 3).css('min-width', this.colWidthUnit * 3);
   }
 });
 
