@@ -90,11 +90,7 @@ filter:progid:DXImageTransform.Microsoft.Gradient(Enabled=1,GradientType=0,Start
   end
 
   def story_points_or_empty(story)
-    if story.story_points.blank?
-      ""
-    else
-      story.story_points % 1 == 0 ? story.story_points.to_i : story.story_points.to_f
-    end
+    story.story_points.blank? ? "" : story.story_points
   end
 
   def record_id_or_empty(story)
