@@ -4,6 +4,8 @@
           (Redmine::VERSION::MAJOR > 2)
        ) || (controller.is_a? RbApplicationController)
       javascript_include_tag 'jquery/jquery-1.7.2-ui-1.8.21-ujs-2.0.3.js', :plugin => 'redmine_backlogs'
+    else
+      javascript_include_tag 'jquery/jquery.browser.min.js', :plugin => 'redmine_backlogs'
     end
 %>
 <%= javascript_include_tag 'jquery/jquery.verticalfix-min.js', :plugin => 'redmine_backlogs' %>
