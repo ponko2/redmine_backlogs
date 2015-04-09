@@ -75,6 +75,7 @@ en:
   backlogs_story_tracker: "Story trackers"
   backlogs_task: Task
   backlogs_task_tracker: "Task tracker"
+  backlogs_default_task_tracker: "Default task tracker"
   backlogs_wiki_template: "Template for sprint wiki page"
   button_edit_wiki: "Edit wiki page"
   comma_delimited_numbers: "Comma delimited numbers"

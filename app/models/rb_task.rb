@@ -4,7 +4,7 @@ class RbTask < Issue
   unloadable
 
   def self.tracker
-    task_tracker = Backlogs.setting[:task_tracker]
+    task_tracker = Backlogs.setting[:default_task_tracker]
     return nil if task_tracker.blank?
     return Integer(task_tracker)
   end
@@ -13,10 +13,42 @@ class RbTask < Issue
     self.tracker == tracker_id.to_i
   end
 
+
+
   # unify api between story and task. FIXME: remove this when merging to tracker-free-tasks
   # required for RbServerVariablesHelper.workflow_transitions
+=begin
   def self.trackers
     [self.tracker]
+  end
+=end
+
+
+  def self.trackers(options = {})
+    # legacy
+    options = {:type => options} if options.is_a?(Symbol)
+
+    # somewhere early in the initialization process during first-time migration this gets called when the table doesn't yet exist
+    trackers = []
+    if has_settings_table
+      trackers = Backlogs.setting[:task_trackers]
+      trackers = [] if trackers.blank?
+    end
+
+    trackers = Tracker.find_all_by_id(trackers)
+    trackers = trackers & options[:project].trackers if options[:project]
+    trackers = trackers.sort_by { |t| [t.position] }
+
+    case options[:type]
+      when :trackers      then return trackers
+      when :array, nil  then return trackers.collect{|t| t.id}
+      when :string      then return trackers.collect{|t| t.id.to_s}.join(',')
+      else                   raise "Unexpected return type #{options[:type].inspect}"
+    end
+  end
+
+  def self.has_settings_table
+    ActiveRecord::Base.connection.table_exists?('settings')
   end
 
   def self.rb_safe_attributes(params)

@@ -71,6 +71,7 @@ ru:
   backlogs_story_tracker: "Трекеры историй"
   backlogs_task: Задача
   backlogs_task_tracker: "Трекер задач"
+  backlogs_default_task_tracker: "Трекер задач по умолчанию"
   backlogs_wiki_template: "Шаблон для страницы спринта в Вики"
   button_edit_wiki: "Редактировать страницу Вики"
   comma_delimited_numbers: "Числа, разделенные запятыми"
