@@ -209,16 +209,17 @@
 
 .issue .id {
     margin-bottom: 5px;
-    padding: 0 3px;
+    /* padding: 0 3px; */
     border-radius: 3px;
     background-color: #fff;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
     line-height: 16px;
     text-align: right;
     opacity: .8;
     overflow: hidden
 }
+
 
 .issue .id .v {
     display: none
@@ -260,16 +261,38 @@
 .issue .priority_id.editable {
     position: absolute;
     right: -5px;
-    bottom: 10px;
+    bottom: -6px;
     height: 13px;
     padding-right: 5px;
     padding-left: 5px;
-    border: 2px solid #fff;
+    /* border: 2px solid #fff; */
     border-radius: 15px;
     background-color: #00e;
     color: #fff;
     font-size: 9px
 }
+
+.issue .tracker_id.editable {
+    position: absolute;
+    #right: -5px;
+    #bottom: 10px;
+    #height: 13px;
+    #top: 7px;
+    #left: 6px;
+    height: 12px;
+    #padding-right: 5px;
+    #padding-left: 5px;
+    #border: 2px solid #fff;
+    #border-radius: 15px;
+    #background-color: #221199;
+    color: #000;
+    font-size: 9px
+}
+
+.issue .tracker_id .v {
+    display: none
+}
+
 
 .issue .priority_id .v {
     display: none
@@ -278,11 +301,11 @@
 .issue .remaining_hours.editable {
     position: absolute;
     right: -5px;
-    bottom: -5px;
-    height: 13px;
+    bottom: 20px;
+    height: 12px;
     padding-right: 5px;
     padding-left: 5px;
-    border: 2px solid #fff;
+    /* border: 2px solid #fff; */
     border-radius: 15px;
     background-color: #e00;
     color: #fff;
@@ -415,8 +438,8 @@
     padding-left:5px;
     padding-right:5px;
     position:absolute;
-    top: 7px;
-    left: 6px;
+    right: -5px;
+    bottom: 7px;
     height: 12px;
     vertical-align: middle;
     

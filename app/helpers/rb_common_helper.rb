@@ -316,4 +316,10 @@ filter:progid:DXImageTransform.Microsoft.Gradient(Enabled=1,GradientType=0,Start
 
     return 'swimlane'
   end
+
+
+  def load_trackers_list(task)
+    issue = Issue.find_by_id(task.id)
+    RbTask.trackers(type: :trackers).collect { |t| [t.name, t.id] } if issue
+  end
 end

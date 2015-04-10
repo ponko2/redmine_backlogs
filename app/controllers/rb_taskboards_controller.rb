@@ -132,7 +132,7 @@ class RbTaskboardsController < RbApplicationController
       @last_updated = nil
     else
       @last_updated = RbTask.find(:first,
-        :conditions => ['tracker_id = ? and fixed_version_id = ?', RbTask.tracker, @sprint.stories[0].fixed_version_id],
+        :conditions => ['fixed_version_id = ?',  @sprint.stories[0].fixed_version_id],
         :order => "updated_on DESC")
     end
 
