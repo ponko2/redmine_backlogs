@@ -110,7 +110,7 @@
     float: left;
     border: 0 none;
     border-radius: 4px;
-    background-color: #fff9c8;
+    background-color: #E8D74A;
     font-size: 12px
 }
 
@@ -196,8 +196,8 @@
     background-color: #d9d9d9;
     cursor: move;
     color: #2c2c2c;
-    font-size: 10px;
-    line-height: 1.4;
+    font-size: 11px;
+    line-height: 1.3;
 }
 
 #taskboard .placeholder {
@@ -269,7 +269,7 @@
     border-radius: 15px;
     background-color: #00e;
     color: #fff;
-    font-size: 9px
+    font-size: 10px
 }
 
 .issue .tracker_id.editable {
@@ -301,8 +301,8 @@
 .issue .remaining_hours.editable {
     position: absolute;
     right: -5px;
-    bottom: 20px;
-    height: 12px;
+    bottom: 18px;
+    /*height: 12px;*/
     padding-right: 5px;
     padding-left: 5px;
     /* border: 2px solid #fff; */
@@ -430,19 +430,19 @@
 .issue .spent_hours{
     -moz-border-radius:15px 15px 15px 15px;
     -webkit-border-radius:15px 15px 15px 15px;
-    border-radius:15px 15px 15px 15px;    
+    border-radius:15px 15px 15px 15px;
     background-color: #7e1b1b;
     bottom:-5px;
     color:#FFFFFF;
-    font-size:9px;    
+    font-size:9px;
     padding-left:5px;
     padding-right:5px;
     position:absolute;
     right: -5px;
     bottom: 7px;
-    height: 12px;
+    /*height: 12px;*/
     vertical-align: middle;
-    
+
 }
 
 
@@ -450,8 +450,29 @@
     -moz-border-radius:15px 15px 15px 15px;
     -webkit-border-radius:15px 15px 15px 15px;
     border-radius:15px 15px 15px 15px;
-    border:2px solid #FFFFFF;
+   /* border:2px solid #FFFFFF;*/
     background-color: #7e1b1b;
+    bottom:-5px;
+    color:#FFFFFF;
+    font-size:9px;
+    height:13px;
+    padding-left:5px;
+    padding-right:5px;
+    position:absolute;
+    bottom: -5px;
+    left: 40px;
+    vertical-align: middle;
+
+
+}
+
+
+.story_release_name{
+    -moz-border-radius:15px 15px 15px 15px;
+    -webkit-border-radius:15px 15px 15px 15px;
+    border-radius:15px 15px 15px 15px;
+   /* border:2px solid #FFFFFF;*/
+    background-color: #0059be;
     bottom:-5px;
     color:#FFFFFF;
     font-size:9px;
@@ -463,7 +484,7 @@
     left: -5px;
     vertical-align: middle;
 
-    
+
 }
 
 .swimlane{
@@ -487,4 +508,8 @@
 
 .in_progress{
   background-color: #FFDCDA;
+}
+
+.userfilter{
+    width: 250px;
 }
