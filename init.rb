@@ -38,6 +38,7 @@ object_to_prepare.to_prepare do
   require_dependency 'backlogs_projects_helper_patch'
 
   require_dependency 'backlogs_hooks'
+  require_dependency 'field_format'
 
   require_dependency 'backlogs_merged_array'
 

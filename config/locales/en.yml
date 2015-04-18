@@ -184,6 +184,9 @@ en:
   label_task_board: "Task board"
   label_view_options: "View options"
   label_webcal: "Webcal Feed"
+  label_found_in_release: "Found in release"
+  found_in_release_status_open: "Open"
+  found_in_release_status_closed: "Closed"
   rb_auto_refresh: "Auto-refresh backlogs/taskboard (seconds)"
   rb_burndown_timezone: "Time zone for burndown day boundary"
   rb_burndown_timezone_explanation: |-

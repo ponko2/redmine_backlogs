@@ -176,6 +176,9 @@ ru:
   label_task_board: "Доска задач"
   label_view_options: "Посмотреть настройки"
   label_webcal: "Лента веб-календаря"
+  label_found_in_release: "Найдено в релизе"
+  found_in_release_status_open: "Открыт"
+  found_in_release_status_closed: "Закрыт"
   rb_auto_refresh: "Автоматически обновлять бэклоги / доску задач (в секундах)"
   rb_burndown_timezone: "Часовой пояс для границы дня выполнения"
   rb_burndown_timezone_explanation: |-

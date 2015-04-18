@@ -117,6 +117,11 @@ module Backlogs
             self.start_date = Date.today if self.start_date.blank? && self.status_id != IssueStatus.default.id
 
             self.tracker = Tracker.find(self.tracker_id)
+            if self.parent_issue_id
+              parent_issue = Issue.find(self.parent_issue_id)
+              self.release_id = parent_issue.release_id if parent_issue.release_id
+            end
+
           elsif self.is_story? && Backlogs.setting[:set_start_and_duedates_from_sprint]
             if self.fixed_version
               self.start_date ||= (self.fixed_version.sprint_start_date || Date.today)
