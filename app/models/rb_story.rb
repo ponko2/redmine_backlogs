@@ -94,7 +94,7 @@ class RbStory < Issue
     else #product backlog
       Backlogs::ActiveRecord.add_condition(options, self.__find_options_pbl_condition(project_id))
       options[:joins] ||= []
-      options[:joins] [options[:joins]] unless options[:joins].is_a?(Array)
+      options[:joins] << [options[:joins]] unless options[:joins].is_a?(Array)
       options[:joins] << :status
       options[:joins] << :project
     end

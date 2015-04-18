@@ -71,8 +71,8 @@
 }
 
 .board td {
-    border-right: 1px dotted #dddddd;
-    border-bottom: 1px dotted #dddddd;
+    border-right: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
     vertical-align: top
 }
 

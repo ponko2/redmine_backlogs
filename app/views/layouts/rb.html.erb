@@ -8,10 +8,11 @@
   <%= csrf_meta_tag %>
   <%= favicon %>
 
-  <% if Backlogs.setting[:show_redmine_std_header] %>
-      <%= stylesheet_link_tag 'application', :media => 'all' %>
-      <%= stylesheet_link_tag 'rtl', :media => 'all' if l(:direction) == 'rtl' %>
-  <% end %>
+  <%= javascript_heads %>
+  <%= heads_for_theme %>
+  <%= stylesheet_link_tag 'jquery/jquery-ui-1.11.0', 'application', :media => 'all' %>
+  <%= stylesheet_link_tag 'application', :media => 'all' %>
+  <%= stylesheet_link_tag 'rtl', :media => 'all' if l(:direction) == 'rtl' %>
 
   <%= call_hook :view_layouts_base_html_head %>
 
@@ -19,7 +20,6 @@
   <%= stylesheet_link_tag 'global_print.css', :plugin => 'redmine_backlogs', :media => 'print' %><!--Select2 Files-->
   <%= javascript_include_tag 'select2.min.js', :plugin => 'redmine_improved_searchbox' %>
   <%= stylesheet_link_tag 'select2.css', :plugin => 'redmine_improved_searchbox' %>
-
 
   <!--Project Search Box Files-->
   <%= stylesheet_link_tag 'redmine_improved_searchbox.css', :plugin => 'redmine_improved_searchbox' %>
@@ -132,7 +132,6 @@
   </div>
 </div>
 </body>
-
 
 
 </html>
