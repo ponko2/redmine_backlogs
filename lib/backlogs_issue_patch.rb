@@ -175,7 +175,7 @@ module Backlogs
                                             or
                                             (not ? is NULL and not fixed_version_id is NULL and ?<>fixed_version_id)
                                             or
-                                            (tracker_id IN (#{rb_task_trackers_ids})
+                                            (tracker_id NOT IN (#{rb_task_trackers_ids})
                                           ))", self.root_id, self.lft, self.rgt,
                                                        self.fixed_version_id, self.fixed_version_id,
                                                        self.fixed_version_id, self.fixed_version_id
