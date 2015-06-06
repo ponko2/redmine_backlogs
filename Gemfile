@@ -42,7 +42,7 @@ group :test do
     unless chiliproject
       gem 'capybara', "~> 1.1" if ENV['IN_RBL_TESTENV'] == 'true' # redmine 2.3 conflicts
       gem "faye-websocket", "~>0.4.7"
-      gem "poltergeist", "~>1.0"
+      #gem "poltergeist", "~>1.0"
     end
     gem 'cucumber-rails', :require => false
     gem "culerity"
@@ -69,11 +69,13 @@ group :test do
     gem "rspec", "=1.3.1"
     gem "rspec-rails", "=1.3.3"
   end
+=begin
   if RUBY_VERSION >= "1.9"
     gem "simplecov", "~>0.6"
   else
     gem "rcov",  "=0.9.11"
   end
+=end
   gem "ruby-prof", :platforms => [:ruby]
   gem "spork"
   gem "test-unit", "=1.2.3" if RUBY_VERSION >= "1.9" and ENV['IN_RBL_TESTENV'] == 'true'

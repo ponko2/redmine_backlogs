@@ -186,7 +186,7 @@ RB.Model = RB.Object.create({
   },
   
   getID: function(){
-    return this.$.find('.id .v').text();
+    return this.$.find('.id .v').last().text();
   },
   
   getType: function(){

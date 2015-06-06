@@ -54,37 +54,37 @@ module Backlogs
         return @available_filters if !show_backlogs_issue_items?(project)
 
         if RbStory.trackers.length == 0 or RbTask.tracker.blank?
-          backlogs_filters = { }
+          backlogs_filters = {}
         else
           backlogs_filters = {
-            # mother of *&@&^*@^*#.... order "20" is a magical constant in RM2.2 which means "I'm a custom field". What. The. Fuck.
-            "backlogs_issue_type" => {  :type => :list,
+              # mother of *&@&^*@^*#.... order "20" is a magical constant in RM2.2 which means "I'm a custom field". What. The. Fuck.
+              "backlogs_issue_type" => {:type => :list,
                                         :name => l(:field_backlogs_issue_type),
                                         :values => [[l(:backlogs_story), "story"], [l(:backlogs_task), "task"], [l(:backlogs_impediment), "impediment"], [l(:backlogs_any), "any"]],
-                                        :order => 21 },
-            "story_points" => { :type => :float,
-                                :name => l(:field_story_points),
-                                :order => 22 }
-                             }
+                                        :order => 21},
+              "story_points" => {:type => :float,
+                                 :name => l(:field_story_points),
+                                 :order => 22}
+          }
         end
 
         if project
           backlogs_filters["release_id"] = {
-            :type => :list_optional,
-            :name => l(:field_release),
-            :values => RbRelease.find(:all, :conditions => ["project_id IN (?)", project], :order => 'name ASC').collect { |d| [d.name, d.id.to_s]},
-            :order => 21
+              :type => :list_optional,
+              :name => l(:field_release),
+              :values => RbRelease.find(:all, :conditions => ["project_id IN (?)", project], :order => 'name ASC').collect { |d| [d.name, d.id.to_s] },
+              :order => 21
           }
         end
         @available_filters = @available_filters.merge(backlogs_filters)
       end
-      
+
       def available_columns_with_backlogs_issue_type
         @available_columns = available_columns_without_backlogs_issue_type
         return @available_columns if !show_backlogs_issue_items?(project) or @backlog_columns_included
-        
+
         @backlog_columns_included = true
-        
+
         @available_columns << QueryColumn.new(:story_points, :sortable => "#{Issue.table_name}.story_points")
         @available_columns << QueryColumn.new(:velocity_based_estimate)
         @available_columns << QueryColumn.new(:position, :sortable => "#{Issue.table_name}.position")
@@ -103,18 +103,20 @@ module Backlogs
         selected_values = values_for(field)
         selected_values = ['story', 'task'] if selected_values.include?('any')
 
-        story_trackers = RbStory.trackers(:type=>:string)
-        all_trackers = (RbStory.trackers + [RbTask.tracker]).collect{|val| "#{val}"}.join(",")
+        story_trackers = RbStory.trackers(type: :string)
+        tasks_trackers = RbTask.trackers(type: :string)
+
+        all_trackers = RbStory.trackers(type: :string) + RbTask.trackers(type: :string)
 
         selected_values.each { |val|
           case val
-            when "story"
+            when 'story'
               sql << "(#{db_table}.tracker_id in (#{story_trackers}))"
 
-            when "task"
-              sql << "(#{db_table}.tracker_id = #{RbTask.tracker})"
+            when 'task'
+              sql << "(#{db_table}.tracker_id in (#{tasks_trackers}))"
 
-            when "impediment"
+            when 'impediment'
               sql << "(#{db_table}.id in (
                                 select issue_from_id
                                 from issue_relations ir
@@ -136,7 +138,7 @@ module Backlogs
 
         return sql
       end
-      
+
       private
       def show_backlogs_issue_items?(project)
         !project.nil? and project.module_enabled?('backlogs')
@@ -153,7 +155,7 @@ module Backlogs
       def add_available_column(column)
         self.available_columns << (column)
       end
-      
+
     end
   end
 end

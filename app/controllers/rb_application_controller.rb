@@ -35,7 +35,7 @@ class RbApplicationController < ApplicationController
 
   def check_if_plugin_is_configured
     @settings = Backlogs.settings
-    if @settings[:story_trackers].blank? || @settings[:task_tracker].blank?
+    if @settings[:story_trackers].blank? || @settings[:task_trackers].blank? || @settings[:default_task_tracker].blank?
       respond_to do |format|
         format.html { render :file => "backlogs/not_configured" }
       end

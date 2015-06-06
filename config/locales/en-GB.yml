@@ -6,6 +6,10 @@ en-GB:
   backlogs_burndown_print_height: "Burndown print height"
   backlogs_burndown_print_width: "Burndown print width"
   backlogs_burndown_settings: "Burndown settings"
+  backlogs_cache_minutes: "Length of time to cache"
+  backlogs_caching_options: "Caching options"
+  backlogs_enable_caching: "Enable caching"
+  backlogs_caching_desc: "Cache the workflow transitions model for the Master Backlog. If changing the workflows it is advised to disable caching and allow the cache to expire so that users will see the workflow changes reflected immediately (in lieu of event based cache clearing being implemented.)"
   backlogs_card_specification: "Label types for card printing"
   backlogs_default_story_tracker: "Default story tracker"
   backlogs_general_settings: "General settings"
@@ -110,6 +114,7 @@ en-GB:
   field_time_entry_user_id: "Time Entry User Id"
   field_tracker_id: "Tracker ID"
   field_velocity_based_estimate: "Velocity based estimate"
+  field_total_spent_hours: "Total spent hours"
   label_all_tasks: "All tasks"
   label_back_to_project: "Back to project page"
   label_backlogs: Backlogs
