@@ -70,14 +70,7 @@ module BacklogsPlugin
             <script type="text/javascript">
               var $j = RB.$ || $;
               $j(function($) {
-                $.ajax({
-                    url    : '#{url}',
-                    global : false,
-                    success: function(response)
-                    {
-                      $('#backlogs_view_issues_sidebar').html(response);
-                    }
-                });
+                $('#backlogs_view_issues_sidebar').load('#{url}');
               });
             </script>
           }
@@ -97,13 +90,6 @@ module BacklogsPlugin
 
           project = context[:project]
 
-          unless issue.release_id.nil?
-            release = RbRelease.find(issue.release_id)
-            snippet += "<tr><th>#{l(:field_release)}</th><td>#{link_to(release.name, url_for_prefix_in_hooks + url_for({:controller => 'rb_releases', :action => 'show', :release_id => release}))}</td>"
-            relation_translate = l("label_release_relationship_#{RbStory.find(issue.id).release_relationship}")
-            snippet += "<th>#{l(:field_release_relationship)}</th><td>#{relation_translate}</td></tr>"
-          end
-
           if issue.is_story?
             snippet += "<tr><th>#{l(:field_story_points)}</th><td>#{RbStory.find(issue.id).points_display}</td>"
             unless issue.remaining_hours.nil?
@@ -113,13 +99,17 @@ module BacklogsPlugin
             vbe = issue.velocity_based_estimate
             snippet += "<tr><th>#{l(:field_velocity_based_estimate)}</th><td>#{vbe ? vbe.to_s + ' days' : '-'}</td></tr>"
 
-
+            unless issue.release_id.nil?
+              release = RbRelease.find(issue.release_id)
+              snippet += "<tr><th>#{l(:field_release)}</th><td>#{link_to(release.name, url_for_prefix_in_hooks + url_for({:controller => 'rb_releases', :action => 'show', :release_id => release}))}</td>"
+              relation_translate = l("label_release_relationship_#{RbStory.find(issue.id).release_relationship}")
+              snippet += "<th>#{l(:field_release_relationship)}</th><td>#{relation_translate}</td></tr>"
+            end
           end
 
           if issue.is_task? && User.current.allowed_to?(:update_remaining_hours, project) != nil
             snippet += "<tr><th>#{l(:field_remaining_hours)}</th><td>#{issue.remaining_hours}</td></tr>"
           end
-
 
           return snippet
         rescue => e
@@ -141,29 +131,26 @@ module BacklogsPlugin
           #developers = select_tag("time_entry[user_id]", options_from_collection_for_select(developers, :id, :name, User.current.id))
           #developers = developers.gsub(/\n/, '')
 
-          if issue.safe_attribute?('release_id') && issue.assignable_releases.any?
-            snippet += '<div class="splitcontentleft"><p>'
-            snippet += context[:form].select :release_id, release_options_for_select(issue.assignable_releases, issue.release), :include_blank => true
-            snippet += '</p></div>'
-            snippet += '<div class="splitcontentright"><p>'
-            snippet += context[:form].select :release_relationship, RbStory::RELEASE_RELATIONSHIP.collect{|v|
-                                                                    [ l("label_release_relationship_#{v}"), v] }
-
-            snippet += '</p></div>'
-          end
-
           if issue.is_story?
             snippet += '<p>'
             #snippet += context[:form].label(:story_points)
             if Backlogs.setting[:story_points].blank?
               snippet += context[:form].text_field(:story_points, :size => 3)
             else
-              story_points = issue.story_points.blank? ? nil : "%g" % issue.story_points
-              snippet += context[:form].select(:story_points, options_for_select(Backlogs.setting[:story_points].split(',').map(&:to_s), story_points), include_blank: true)
+              snippet += context[:form].select(:story_points, options_for_select(Backlogs.setting[:story_points].split(',').map(&:to_f), issue.story_points.try(:to_f).try(:to_s)), include_blank: true)
             end
             snippet += '</p>'
 
+            if issue.safe_attribute?('release_id') && issue.assignable_releases.any?
+              snippet += '<div class="splitcontentleft"><p>'
+              snippet += context[:form].select :release_id, release_options_for_select(issue.assignable_releases, issue.release), :include_blank => true
+              snippet += '</p></div>'
+              snippet += '<div class="splitcontentright"><p>'
+              snippet += context[:form].select :release_relationship, RbStory::RELEASE_RELATIONSHIP.collect{|v|
+                [ l("label_release_relationship_#{v}"), v] }
 
+              snippet += '</p></div>'
+            end
 
             if issue.descendants.length != 0 && !issue.new_record?
               snippet += <<-generatedscript

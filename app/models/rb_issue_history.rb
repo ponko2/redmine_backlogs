@@ -88,14 +88,11 @@ class RbIssueHistory < ActiveRecord::Base
   end
 
   def self.issue_type(tracker_id)
-    return nil if tracker_id.blank?
-    if RbStory.trackers_include?(tracker_id)
-      :story
-    elsif RbTask.tracker?(tracker_id)
-      :task
-    else
-      nil
-    end
+    return nil if tracker_id.nil? || tracker_id == ''
+    tracker_id = tracker_id.to_i
+    return :story if RbStory.trackers && RbStory.trackers.include?(tracker_id)
+    return :task if tracker_id == RbTask.tracker
+    return nil
   end
 
   def expand
@@ -158,7 +155,7 @@ class RbIssueHistory < ActiveRecord::Base
       }
     }
 
-    if ActiveRecord::Base.connection.table_exists?('rb_journals')
+    if ActiveRecord::Base.connection.tables.include?('rb_journals')
       RbJournal.all(:conditions => ['issue_id=?', issue.id], :order => 'timestamp asc').each{|j|
         date = j.timestamp.to_date
         full_journal[date] ||= {}
