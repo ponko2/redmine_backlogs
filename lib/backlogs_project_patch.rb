@@ -98,11 +98,11 @@ module Backlogs
     end
 
     def test_sprints_sized
-      return !Issue.exists?(["story_points is null and fixed_version_id in (?) and tracker_id in (?)", @all_sprints.collect{|s| s.id}, RbStory.trackers(type: :array)])
+      return !Issue.exists?(["story_points is null and fixed_version_id in (?) and tracker_id in (?)", @all_sprints.collect{|s| s.id}, RbStory.trackers])
     end
 
     def test_sprints_estimated
-      return !Issue.exists?(["estimated_hours is null and fixed_version_id in (?) and tracker_id in (?)", @all_sprints.collect{|s| s.id}, RbTask.trackers(type: :array)])
+      return !Issue.exists?(["estimated_hours is null and fixed_version_id in (?) and tracker_id = ?", @all_sprints.collect{|s| s.id}, RbTask.tracker])
     end
 
     def test_sprint_notes_available

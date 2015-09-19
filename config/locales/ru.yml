@@ -7,7 +7,7 @@ ru:
   backlogs_burndown_print_width: "Ширина графика выполнения"
   backlogs_burndown_settings: "Настройки графика выполнения"
   backlogs_card_specification: "Тип заголовков для печати карт"
-  backlogs_default_story_tracker: "Трекер истории по умолчанию"
+  backlogs_default_story_tracker: "Default story tracker"
   backlogs_general_settings: "Общие настройки"
   backlogs_impediment: Задержка
   backlogs_include_sat_and_sun: "Включать субботу и воскресенье в график выполнения"
@@ -18,17 +18,17 @@ ru:
   backlogs_pblpage_settings: "Настройка страницы бэклога продукта"
   backlogs_points_burn_direction: "Баллов выполнено/осталось"
   backlogs_product_backlog: "Бэклог продукта"
-  backlogs_scrum_stats_menu_application: "Меню приложения"
-  backlogs_scrum_stats_menu_none: Никакой
-  backlogs_scrum_stats_menu_position: "Положение меню: Скрам-статистика"
-  backlogs_scrum_stats_menu_top: "Верхнее меню"
+  backlogs_scrum_stats_menu_application: "Application menu"
+  backlogs_scrum_stats_menu_none: None
+  backlogs_scrum_stats_menu_position: "Position of Scrum Statistics menu"
+  backlogs_scrum_stats_menu_top: "Top menu"
   backlogs_set_start_and_duedates_from_sprint: "Установить дату начала и окончания истории из спринта"
   backlogs_sharing_enabled: "Разрешить совместное использование"
   backlogs_sharing_new_sprint: "Использовать совместно новые спринты"
   backlogs_sharing_new_sprint_explanation: "Несмотря на то, что все возможные опции доступны здесь, новые спринты могут совместно использоваться только в соответствии с правами пользователей и разрешениями проектов. Используемые совместно на уровне системы спринты могут быть созданы только админами. Спринты, используемые совместно на уровне иерархии или дерева требуют разрешений на проекте верхнего уровня."
   backlogs_sharing_support: "Совместное использование бэклогов"
   backlogs_show_in_scrum_stats: "Показывать проект в Скрам-статистике"
-  backlogs_show_priority: "Показывать приоритет задачи на доске задач"
+  backlogs_show_priority: "Show task priority on taskboard"
   backlogs_show_redmine_std_header: "Показывать заголовок трекера в бэклогах"
   backlogs_show_stories_from_subprojects_in_backlog: "Показывать в бэклоге истории из подпроектов"
   backlogs_sprint_card_settings: "Печать карт спринта"
@@ -71,7 +71,6 @@ ru:
   backlogs_story_tracker: "Трекеры историй"
   backlogs_task: Задача
   backlogs_task_tracker: "Трекер задач"
-  backlogs_default_task_tracker: "Трекер задач по умолчанию"
   backlogs_wiki_template: "Шаблон для страницы спринта в Вики"
   button_edit_wiki: "Редактировать страницу Вики"
   comma_delimited_numbers: "Числа, разделенные запятыми"
@@ -93,7 +92,7 @@ ru:
   field_base: ""
   field_blocks: Блокировки
   field_name: Название
-  field_planned_velocity: "Запланированная скорость"
+  field_planned_velocity: "Planned velocity"
   field_position: Положение
   field_priority: Приоритет
   field_project_id: "Идентификатор проекта"
@@ -104,14 +103,13 @@ ru:
   field_remaining_hours: "Осталось (часов)"
   field_story_points: "Оценка истории (в баллах)"
   field_subject: Тема
-  field_task_color: "Цвет задачи"
-  field_time_entry_comments: "Комментарий к списанию времени"
-  field_time_entry_hours: "Затрачено часов"
-  field_time_entry_spend_on: "Дата списания"
-  field_time_entry_user_id: "Автор списания"
+  field_task_color: "Task color"
+  field_time_entry_comments: "Time Entry Comments"
+  field_time_entry_hours: "Time Entry Hours"
+  field_time_entry_spend_on: "Time Entry Spend on"
+  field_time_entry_user_id: "Time Entry User Id"
   field_tracker_id: "Идентификатор трекера"
   field_velocity_based_estimate: "Оценка на основе скорости"
-  field_total_spent_hours: "Всего затрачено времени"
   label_all_tasks: "Все задачи"
   label_back_to_project: "Назад на страницу проекта"
   label_backlogs: Бэклоги
@@ -164,7 +162,7 @@ ru:
   label_release_start_date: "Дата начала релиза"
   label_release_trend_end_date: "Trend estimated end date"
   label_reset: Сбросить
-  label_scrum_statistics: Скрам-стат.
+  label_scrum_statistics: Скрам-статистика
   label_select_all: "Выбрать все"
   label_show_completed_sprints: "Показать выполненные спринты"
   label_sprint_backlog: "бэклог спринта"
@@ -176,9 +174,6 @@ ru:
   label_task_board: "Доска задач"
   label_view_options: "Посмотреть настройки"
   label_webcal: "Лента веб-календаря"
-  label_found_in_release: "Найдено в релизе"
-  found_in_release_status_open: "Открыт"
-  found_in_release_status_closed: "Закрыт"
   rb_auto_refresh: "Автоматически обновлять бэклоги / доску задач (в секундах)"
   rb_burndown_timezone: "Часовой пояс для границы дня выполнения"
   rb_burndown_timezone_explanation: |-

@@ -10,7 +10,6 @@
     <div class="v"><%= assignee_id_or_empty(impediment) %></div>
   </div>
   <div class="remaining_hours editable" fieldname="remaining_hours" fieldlabel="<%=l(:field_remaining_hours)%>"><%= remaining_hours_or_empty(impediment) %></div>
-  <div class="spent_hours editable" fieldname="remaining_hours" fieldlabel="<%=l(:field_spent_hours)%>"><%= spent_hours_or_empty(impediment) %></div>
   <div class="indicator"> </div>
   <% if User.current.allowed_to?(:log_time, @project) && @settings[:timelog_from_taskboard]=='enabled'  %>
     <div class="time_entry_hours editable" style="display: none" fieldname="time_entry_hours" fieldlabel="<%=l(:field_time_entry_hours)%>"></div>

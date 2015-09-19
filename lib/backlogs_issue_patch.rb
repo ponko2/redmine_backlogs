@@ -19,10 +19,10 @@ module Backlogs
 
         validates_inclusion_of :release_relationship, :in => RbStory::RELEASE_RELATIONSHIP
 
-        safe_attributes 'release_id', 'release_relationship' #FIXME merge conflict. is this required?
+        safe_attributes 'release_id','release_relationship' #FIXME merge conflict. is this required?
 
         before_save :backlogs_before_save
-        after_save :backlogs_after_save
+        after_save  :backlogs_after_save
 
         include Backlogs::ActiveRecord::Attributes
       end
@@ -41,18 +41,18 @@ module Backlogs
       end
 
       def is_story?
-        RbStory.trackers_include?(tracker_id)
+        return RbStory.trackers.include?(tracker_id)
       end
 
       def is_task?
-        RbTask.tracker?(tracker_id)
+        return (tracker_id == RbTask.tracker)
       end
-
+      
       def backlogs_issue_type
-        return 'story' if self.is_story?
-        return 'impediment' if self.blocks(true).any?
-        return 'task' if self.is_task?
-        ''
+        return "story" if self.is_story?
+        return "impediment" if self.blocks(true).any?
+        return "task" if self.is_task?
+        ""
       end
 
       def story
@@ -71,7 +71,7 @@ module Backlogs
               @rb_story = parent.story
             end
           else
-            @rb_story = Issue.find(:first, :order => 'lft DESC', :conditions => ["root_id = ? and lft < ? and rgt > ? and tracker_id in (?)", root_id, lft, rgt, RbStory.trackers])
+            @rb_story = Issue.find(:first, :order => 'lft DESC', :conditions => [ "root_id = ? and lft < ? and rgt > ? and tracker_id in (?)", root_id, lft, rgt, RbStory.trackers ])
             @rb_story = @rb_story.becomes(RbStory) if @rb_story
           end
         end
@@ -82,7 +82,7 @@ module Backlogs
         # return issues that I block that aren't closed
         return [] if closed? and !include_closed
         begin
-          return relations_from.collect { |ir| ir.relation_type == 'blocks' && (!ir.issue_to.closed? || include_closed) ? ir.issue_to : nil }.compact
+          return relations_from.collect {|ir| ir.relation_type == 'blocks' && (!ir.issue_to.closed? || include_closed) ? ir.issue_to : nil }.compact
         rescue
           # stupid rails and their ignorance of proper relational databases
           Rails.logger.error "Cannot return the blocks list for #{self.id}: #{e}"
@@ -93,14 +93,14 @@ module Backlogs
       def blockers
         # return issues that block me
         return [] if closed?
-        relations_to.collect { |ir| ir.relation_type == 'blocks' && !ir.issue_from.closed? ? ir.issue_from : nil }.compact
+        relations_to.collect {|ir| ir.relation_type == 'blocks' && !ir.issue_from.closed? ? ir.issue_from : nil}.compact
       end
 
       def velocity_based_estimate
-        return nil if !self.is_story? || !self.story_points || self.story_points <= 0
+        return nil if !self.is_story? || ! self.story_points || self.story_points <= 0
 
         hpp = self.project.scrum_statistics.hours_per_point
-        return nil if !hpp
+        return nil if ! hpp
 
         return Integer(self.story_points * (hpp / 8))
       end
@@ -116,12 +116,7 @@ module Backlogs
             self.fixed_version = self.story.fixed_version if self.story
             self.start_date = Date.today if self.start_date.blank? && self.status_id != IssueStatus.default.id
 
-            self.tracker = Tracker.find(self.tracker_id)
-            if self.parent_issue_id
-              parent_issue = Issue.find(self.parent_issue_id)
-              self.release_id = parent_issue.release_id if parent_issue.release_id
-            end
-
+            self.tracker = Tracker.find(RbTask.tracker) unless self.tracker_id == RbTask.tracker
           elsif self.is_story? && Backlogs.setting[:set_start_and_duedates_from_sprint]
             if self.fixed_version
               self.start_date ||= (self.fixed_version.sprint_start_date || Date.today)
@@ -146,7 +141,7 @@ module Backlogs
       end
 
       def invalidate_release_burnchart_data
-        RbReleaseBurnchartDayCache.delete_all(["issue_id = ? AND day >= ?", self.id, Date.today])
+        RbReleaseBurnchartDayCache.delete_all(["issue_id = ? AND day >= ?",self.id,Date.today])
         #FIXME Missing cleanup of older cache entries which is no longer
         # valid for any releases. Delete cache entries not related to
         # current release?
@@ -156,7 +151,7 @@ module Backlogs
         self.history.save!
         self.invalidate_release_burnchart_data
 
-        [self.parent_id, self.parent_id_was].compact.uniq.each { |pid|
+        [self.parent_id, self.parent_id_was].compact.uniq.each{|pid|
           p = Issue.find(pid)
           r = p.leaves.sum("COALESCE(remaining_hours, 0)").to_f
           if r != p.remaining_hours
@@ -171,7 +166,6 @@ module Backlogs
           # raw sql and manual journal here because not
           # doing so causes an update loop when Issue calls
           # update_parent :<
-          rb_task_trackers_ids = RbTask.trackers(type: :string)
           tasklist = RbTask.find(:all, :conditions => ["root_id=? and lft>? and rgt<? and
                                           (
                                             (? is NULL and not fixed_version_id is NULL)
@@ -180,16 +174,16 @@ module Backlogs
                                             or
                                             (not ? is NULL and not fixed_version_id is NULL and ?<>fixed_version_id)
                                             or
-                                            (tracker_id NOT IN (#{rb_task_trackers_ids})
-                                          ))", self.root_id, self.lft, self.rgt,
-                                                       self.fixed_version_id, self.fixed_version_id,
-                                                       self.fixed_version_id, self.fixed_version_id
-                                     ]).to_a
-          tasklist.each { |task| task.history.save! }
+                                            (tracker_id <> ?)
+                                          )", self.root_id, self.lft, self.rgt,
+                                              self.fixed_version_id, self.fixed_version_id,
+                                              self.fixed_version_id, self.fixed_version_id,
+                                              RbTask.tracker]).to_a
+          tasklist.each{|task| task.history.save! }
           if tasklist.size > 0
-            task_ids = '(' + tasklist.collect { |task| connection.quote(task.id) }.join(',') + ')'
+            task_ids = '(' + tasklist.collect{|task| connection.quote(task.id)}.join(',') + ')'
             connection.execute("update issues set
-                                updated_on = #{connection.quote(self.updated_on)}, fixed_version_id = #{connection.quote(self.fixed_version_id)}
+                                updated_on = #{connection.quote(self.updated_on)}, fixed_version_id = #{connection.quote(self.fixed_version_id)}, tracker_id = #{RbTask.tracker}
                                 where id in #{task_ids}")
           end
         end

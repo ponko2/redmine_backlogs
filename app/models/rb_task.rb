@@ -4,65 +4,15 @@ class RbTask < Issue
   unloadable
 
   def self.tracker
-    task_tracker = Backlogs.setting[:default_task_tracker]
+    task_tracker = Backlogs.setting[:task_tracker]
     return nil if task_tracker.blank?
     return Integer(task_tracker)
   end
 
-
-  def self.tracker?(tracker_id)
-    tracker_ids = Backlogs.setting[:task_trackers] || []
-    tracker_ids = tracker_ids.map(&:to_i)
-    tracker_ids.include?(tracker_id.to_i)
-  end
-
-
   # unify api between story and task. FIXME: remove this when merging to tracker-free-tasks
   # required for RbServerVariablesHelper.workflow_transitions
-=begin
   def self.trackers
     [self.tracker]
-  end
-=end
-
-
-  def tracker_name
-    if self.tracker
-      self.tracker.name.to_s
-    else
-      ''
-    end
-  end
-
-  def self.trackers(options = {})
-    # legacy
-    options = {:type => options} if options.is_a?(Symbol)
-
-    # somewhere early in the initialization process during first-time migration this gets called when the table doesn't yet exist
-    trackers = []
-    if has_settings_table
-      trackers = Backlogs.setting[:task_trackers]
-      trackers = [] if trackers.blank?
-    end
-
-    trackers = Tracker.find_all_by_id(trackers)
-    trackers = trackers & options[:project].trackers if options[:project]
-    trackers = trackers.sort_by { |t| [t.position] }
-
-    case options[:type]
-      when :trackers then
-        return trackers
-      when :array, nil then
-        return trackers.collect { |t| t.id }
-      when :string then
-        return trackers.collect { |t| t.id.to_s }.join(',')
-      else
-        raise "Unexpected return type #{options[:type].inspect}"
-    end
-  end
-
-  def self.has_settings_table
-    ActiveRecord::Base.connection.table_exists?('settings')
   end
 
   def self.rb_safe_attributes(params)
@@ -70,12 +20,12 @@ class RbTask < Issue
       safe_attributes_names = RbTask::SAFE_ATTRIBUTES
     else
       safe_attributes_names = Issue.new(
-          :project_id => params[:project_id] # required to verify "safeness"
+        :project_id=>params[:project_id] # required to verify "safeness"
       ).safe_attribute_names
     end
-    attribs = params.select { |k, v| safe_attributes_names.include?(k) }
+    attribs = params.select {|k,v| safe_attributes_names.include?(k) }
     # lft and rgt fields are handled by acts_as_nested_set
-    attribs = attribs.select { |k, v| k != 'lft' and k != 'rgt' }
+    attribs = attribs.select{|k,v| k != 'lft' and k != 'rgt' }
     attribs = Hash[*attribs.flatten] if attribs.is_a?(Array)
     return attribs
   end
@@ -84,7 +34,7 @@ class RbTask < Issue
     attribs = rb_safe_attributes(params)
 
     attribs['author_id'] = user_id
-    #attribs['tracker_id'] = RbTask.tracker
+    attribs['tracker_id'] = RbTask.tracker
     attribs['project_id'] = project_id
 
     blocks = params.delete('blocks')
@@ -119,14 +69,13 @@ class RbTask < Issue
   # task-tracker as their tracker, and are top-level issues.
   def self.find_all_updated_since(since, project_id, find_impediments = false, sprint_id = nil)
     #find all updated visible on taskboard - which may span projects.
-    project = Project.find_by_id(project_id)
     if sprint_id.nil?
       find(:all,
-           :conditions => ["project_id = ? AND updated_on > ? AND tracker_id in (?) and parent_id IS #{ find_impediments ? '' : 'NOT' } NULL", project_id, Time.parse(since), self.trackers(type: :array, project: project)],
+           :conditions => ["project_id = ? AND updated_on > ? AND tracker_id in (?) and parent_id IS #{ find_impediments ? '' : 'NOT' } NULL", project_id, Time.parse(since), tracker],
            :order => "updated_on ASC")
     else
       find(:all,
-           :conditions => ["fixed_version_id = ? AND updated_on > ? AND tracker_id in (?) and parent_id IS #{ find_impediments ? '' : 'NOT' } NULL", sprint_id, Time.parse(since), self.trackers(type: :array, project: project)],
+           :conditions => ["fixed_version_id = ? AND updated_on > ? AND tracker_id in (?) and parent_id IS #{ find_impediments ? '' : 'NOT' } NULL", sprint_id, Time.parse(since), tracker],
            :order => "updated_on ASC")
     end
   end
@@ -173,15 +122,15 @@ class RbTask < Issue
 
   def update_blocked_list(for_blocking)
     # Existing relationships not in for_blocking should be removed from the 'blocks' list
-    relations_from.find(:all, :conditions => "relation_type='blocks'").each { |ir|
-      ir.destroy unless for_blocking.include?(ir[:issue_to_id])
+    relations_from.find(:all, :conditions => "relation_type='blocks'").each{ |ir|
+      ir.destroy unless for_blocking.include?( ir[:issue_to_id] )
     }
 
-    already_blocking = relations_from.find(:all, :conditions => "relation_type='blocks'").map { |ir| ir.issue_to_id }
+    already_blocking = relations_from.find(:all, :conditions => "relation_type='blocks'").map{|ir| ir.issue_to_id}
 
     # Non-existing relationships that are in for_blocking should be added to the 'blocks' list
-    for_blocking.select { |id| !already_blocking.include?(id) }.each { |id|
-      ir = relations_from.new(:relation_type => 'blocks')
+    for_blocking.select{ |id| !already_blocking.include?(id) }.each{ |id|
+      ir = relations_from.new(:relation_type=>'blocks')
       ir[:issue_to_id] = id
       ir.save!
     }
@@ -212,10 +161,10 @@ class RbTask < Issue
     sprint ||= self.fixed_version.becomes(RbSprint) if self.fixed_version
     return nil if sprint.nil? || !sprint.has_burndown?
 
-    self.history.filter(sprint, status).collect { |d|
+    self.history.filter(sprint, status).collect{|d|
       if d.nil? || d[:sprint] != sprint.id || d[:tracker] != :task
         nil
-      elsif !d[:status_open]
+      elsif ! d[:status_open]
         0
       else
         d[:hours]
