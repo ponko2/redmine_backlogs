@@ -6,7 +6,7 @@ version_file = IO.read(redmine_version_file)
 redmine_version_minor = version_file.match(/MINOR =/).post_match.match(/\d/)[0].to_i
 redmine_version_major = version_file.match(/MAJOR =/).post_match.match(/\d/)[0].to_i
 
-gem "holidays", "~>1.0.3"
+gem "holidays"
 gem "icalendar"
 gem "nokogiri"
 gem "open-uri-cached"
@@ -25,7 +25,7 @@ group :test do
   gem 'cucumber-rails', require: false
   gem "culerity"
   gem "cucumber"
-  gem "capybara", "~> 1"
+  #gem "capybara", "~> 1"
   #gem "faye-websocket"
   gem "poltergeist"
   gem "database_cleaner"

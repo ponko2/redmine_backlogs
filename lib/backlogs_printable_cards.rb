@@ -429,14 +429,14 @@ module BacklogsPrintableCards
 
         fontdir = File.dirname(__FILE__) + '/ttf'
         @pdf.font_families.update(
-          "DejaVuSans" => {
-            :bold         => "#{fontdir}/DejaVuSans-Bold.ttf",
-            :italic       => "#{fontdir}/DejaVuSans-Oblique.ttf",
-            :bold_italic  => "#{fontdir}/DejaVuSans-BoldOblique.ttf",
-            :normal       => "#{fontdir}/DejaVuSans.ttf"
+          "IPAex" => {
+            :bold         => "#{fontdir}/ipaexg.ttf",
+            :italic       => "#{fontdir}/ipaexg.ttf",
+            :bold_italic  => "#{fontdir}/ipaexg.ttf",
+            :normal       => "#{fontdir}/ipaexg.ttf"
           }
         )
-        @pdf.font "DejaVuSans"
+        @pdf.font "IPAex"
 
         @cards = 0
 
