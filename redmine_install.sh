@@ -216,7 +216,7 @@ sed -i -e 's=.*gem ["'\'']test-unit["'\''].*==g' ${PATH_TO_REDMINE}/Gemfile
 #capybara 2 breaks our tests. too much has changed.
 sed -i -e 's=.*gem ["'\'']capybara["'\''].*==g' ${PATH_TO_REDMINE}/Gemfile
 #nokogiri ">= 1.6.7.2" our tests. too much has changed.
-sed -i 's/"nokogiri", ">= 1.6.7.2"/"nokogiri", #">= 1.6.7.2"/' ${PATH_TO_REDMINE}/Gemfile
+sed -i 's/"nokogiri", ">= 1.6.7.2"/"nokogiri"#, ">= 1.6.7.2"/' ${PATH_TO_REDMINE}/Gemfile
 
 # install gems
 mkdir -p vendor/bundle
