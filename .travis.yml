@@ -6,7 +6,7 @@ services:
 - mysql
 - postgresql
 rvm:
-- 2.0.0
+- 2.1.9
 env:
 - REDMINE_VER=3.3.0 DB=postgresql CLUSTER=CLUSTER1
 - REDMINE_VER=3.3.0 DB=postgresql CLUSTER=CLUSTER2
