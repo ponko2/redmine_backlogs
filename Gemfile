@@ -30,8 +30,8 @@ group :test do
   gem "poltergeist"
   gem "database_cleaner"
   gem "gherkin"
-  gem "rspec"
-  gem "rspec-rails"
+  gem "rspec", "~> 2.0"
+  gem "rspec-rails", "~> 2.0"
   gem "ruby-prof", :platforms => [:ruby]
   gem "spork"
   gem "test-unit", "=1.2.3"
