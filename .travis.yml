@@ -32,4 +32,4 @@ script:
 - bash -x ./redmine_install.sh -r || exit 1
 - bash -x ./redmine_install.sh -i || exit 1
 - bash -x ./redmine_install.sh -t || exit 1
-#- bash -x ./redmine_install.sh -u || exit 1
+- bash -x ./redmine_install.sh -u || exit 1
