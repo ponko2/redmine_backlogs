@@ -24,9 +24,8 @@ group :test do
   #gem 'cucumber-rails', '~>1.4.0', require: false
   gem 'cucumber-rails', require: false
   gem "culerity"
-#  gem "cucumber", "~> 1.0"
-#  gem "capybara", "~> 1.0"
-  gem "cucumber"
+  gem "cucumber"#, "~> 1.0"
+  #gem "capybara", "~> 1.0"
   #gem "faye-websocket"
   gem "poltergeist"
   gem "database_cleaner"
