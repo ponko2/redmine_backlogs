@@ -6,12 +6,12 @@ services:
 - mysql
 - postgresql
 rvm:
-- 2.0.0
+- 2.1.9
 env:
-- REDMINE_VER=3.0.3 DB=postgresql CLUSTER=CLUSTER1
-- REDMINE_VER=3.0.3 DB=postgresql CLUSTER=CLUSTER2
-- REDMINE_VER=3.0.3 DB=mysql CLUSTER=CLUSTER1
-- REDMINE_VER=3.0.3 DB=mysql CLUSTER=CLUSTER2
+- REDMINE_VER=3.3.0 DB=postgresql CLUSTER=CLUSTER1
+#- REDMINE_VER=3.3.0 DB=postgresql CLUSTER=CLUSTER2
+#- REDMINE_VER=3.3.0 DB=mysql CLUSTER=CLUSTER1
+- REDMINE_VER=3.3.0 DB=mysql CLUSTER=CLUSTER2
 matrix:
   allow_failures:
   exclude:
@@ -31,5 +31,5 @@ script:
 - cp config/database.yml.travis $WORKSPACE/database.yml
 - bash -x ./redmine_install.sh -r || exit 1
 - bash -x ./redmine_install.sh -i || exit 1
-- bash -x ./redmine_install.sh -t || exit 1
+#- bash -x ./redmine_install.sh -t || exit 1
 - bash -x ./redmine_install.sh -u || exit 1
