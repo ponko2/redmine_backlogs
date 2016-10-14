@@ -6,7 +6,7 @@ please visit http://www.redminebacklogs.net
 
 PROJECT HEALTH
 --------------
-[![Build Status](https://travis-ci.org/ayapapa/redmine_backlogs.svg?branch=redmine3-dev)](https://travis-ci.org/ayapapa/redmine_backlogs)
+[![Build Status](https://travis-ci.org/ayapapa/redmine_backlogs.svg?branch=redmine3)](https://travis-ci.org/ayapapa/redmine_backlogs)
 [![Code Climate](https://codeclimate.com/github/ayapapa/redmine_backlogs.png)](https://codeclimate.com/github/ayapapa/redmine_backlogs)
 [![Dependency Status](https://gemnasium.com/ayapapa/redmine_backlogs.png)](https://gemnasium.com/ayapapa/redmine_backlogs)
 
