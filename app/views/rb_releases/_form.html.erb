@@ -12,11 +12,11 @@
   </p>
   
   <p>
-    <%= f.text_field :release_start_date, :required => true %>
+    <%= f.date_field :release_start_date, :required => true %>
     <%= calendar_for('release_release_start_date') %>
   </p>
   <p>
-    <%= f.text_field :release_end_date, :required => true %>
+    <%= f.date_field :release_end_date, :required => true %>
     <%= calendar_for('release_release_end_date') %>
   </p>
   <p>
