@@ -30,8 +30,8 @@ module Backlogs
         alias_method :available_filters, :available_filters_with_backlogs_issue_type
 
         #alias_method_chain :available_columns, :backlogs_issue_type
-        alias_method_chain :available_columns, :backlogs_issue_type
-        alias_method_chain :available_columns, :backlogs_issue_type
+        alias_method :available_columns, :backlogs_issue_type
+        alias_method :available_columns, :backlogs_issue_type
         
         #alias_method_chain :sql_for_field, :backlogs_issue_type
         alias_method :sql_for_field_without_backlogs_issue_type, :backlogs_issue_type
