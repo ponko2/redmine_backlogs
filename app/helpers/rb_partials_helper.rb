@@ -15,7 +15,7 @@ module RbPartialsHelper
         send("#{method_name}_without_html_safe", *args, &block).html_safe
       end
       alias_method method_name_whithout_html_safe, :method_name
-      alias_method_chain method_name, :method_name_whith_html_safe
+      alias_method method_name, :method_name_whith_html_safe
       method_name
     end
 
