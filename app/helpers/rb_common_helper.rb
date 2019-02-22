@@ -5,7 +5,7 @@ module RbCommonHelper
   unloadable
 
   include CustomFieldsHelper
-  include RbPartialsHelper
+  #include RbPartialsHelper
 
   def assignee_id_or_empty(story)
     story.new_record? ? "" : story.assigned_to_id
