@@ -1,4 +1,4 @@
-require "erubis"
+require "erubi"
 module RbPartialsHelper
   unloadable
 
