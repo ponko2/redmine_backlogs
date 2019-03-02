@@ -1,6 +1,6 @@
 require 'benchmark'
 
-class NullTaskPosition < ActiveRecord::Migration
+class NullTaskPosition < ActiveRecord::Migration[4.2]
   def self.up
     if RbTask.tracker
       execute "update issues set position = null where tracker_id = #{RbTask.tracker}"
