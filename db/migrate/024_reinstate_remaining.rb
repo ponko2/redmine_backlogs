@@ -1,6 +1,6 @@
 require 'benchmark'
 
-class ReinstateRemaining < ActiveRecord::Migration
+class ReinstateRemaining < ActiveRecord::Migration[4.2]
 
   def self.initial_estimate(issue)
     if issue.leaf?
