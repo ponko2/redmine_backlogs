@@ -17,7 +17,7 @@ module Backlogs
       #def project_settings_tabs_with_backlogs
       def project_settings_tabs
         #tabs = project_settings_tabs_without_backlogs
-        tabs = super:
+        tabs = super
         tabs << {:name => 'backlogs',
           :action => :manage_project_backlogs,
           :partial => 'backlogs/project_settings',
