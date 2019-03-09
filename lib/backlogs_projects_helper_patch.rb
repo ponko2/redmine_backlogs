@@ -1,7 +1,7 @@
 require_dependency 'projects_helper'
 
-module Backlogs
-  module ProjectsHelperPatch
+module BacklogsProjectsHelperPatch
+  #module ProjectsHelperPatch
 
     #def self.included(base)
     #  base.send(:include, InstanceMethods)
@@ -12,7 +12,7 @@ module Backlogs
     #  end
     #end
 
-    module InstanceMethods
+    #module InstanceMethods
 
       #def project_settings_tabs_with_backlogs
       def project_settings_tabs
@@ -27,10 +27,11 @@ module Backlogs
         return tabs
       end
 
-    end
+    #end
 
-  end
+  #end
 end
 
-ProjectsHelper.send(:include, Backlogs::ProjectsHelperPatch) unless ProjectsHelper.included_modules.include? Backlogs::ProjectsHelperPatch
+#ProjectsHelper.send(:include, Backlogs::ProjectsHelperPatch) unless ProjectsHelper.included_modules.include? Backlogs::ProjectsHelperPatch
+ProjectsHelper.prepend(BacklogsProjectsHelperPatch)
 
