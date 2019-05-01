@@ -19,7 +19,8 @@ class RbReleasesMultiviewController < RbApplicationController
     if request.post?
       # Convert id's into numbers and remove blank
       params[:release_multiview][:release_ids]=selected_ids(params[:release_multiview][:release_ids])
-      @release_multiview.attributes = params[:release_multiview]
+      #@release_multiview.attributes = params[:release_multiview]
+      @release_multiview.attributes = params.require(:release_multiview).permit(:name, :description, :release_ids)
 
       if @release_multiview.save
         flash[:notice] = l(:notice_successful_create)

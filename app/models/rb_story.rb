@@ -175,8 +175,9 @@ class RbStory < Issue
     attribs = params.select{|k,v| !['prev', 'next', 'id', 'lft', 'rgt'].include?(k) && RbStory.column_names.include?(k) }
 
     attribs[:status] = RbStory.class_default_status
-    attribs = Hash[*attribs.flatten]
-    s = RbStory.new(attribs)
+    s = RbStory.new
+    s.safe_attributes=attribs
+    s.author_id = attribs[:author_id]
     s.save!
     s.position!(params)
 
@@ -263,7 +264,6 @@ class RbStory < Issue
 
     # lft and rgt fields are handled by acts_as_nested_set
     attribs = params.select{|k,v| !['prev', 'id', 'project_id', 'lft', 'rgt'].include?(k) && RbStory.column_names.include?(k) }
-    attribs = Hash[*attribs.flatten]
 
     return self.journalized_update_attributes attribs
   end

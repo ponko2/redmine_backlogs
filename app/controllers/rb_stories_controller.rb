@@ -32,7 +32,7 @@ class RbStoriesController < RbApplicationController
     begin
       story = RbStory.create_and_position(params)
     rescue => e
-      render :text => e.message.blank? ? e.to_s : e.message, :status => 400
+      show_error(e)
       return
     end
 
@@ -48,7 +48,7 @@ class RbStoriesController < RbApplicationController
     begin
       result = story.update_and_position!(params)
     rescue => e
-      render :text => e.message.blank? ? e.to_s : e.message, :status => 400
+      show_error(e)
       return
     end
 
@@ -66,4 +66,9 @@ class RbStoriesController < RbApplicationController
     end
   end
 
+  def show_error(e)
+    error_msg = e.message.blank? ? e.to_s : e.message
+    logger.error("error: " + error_msg + "\n" + e.backtrace.join("\n"))
+    render :text => error_msg, :status => 400
+  end
 end
