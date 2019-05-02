@@ -12,6 +12,7 @@ gem "nokogiri", ">= 1.6.7.2"
 gem "open-uri-cached"
 gem "prawn"
 gem 'json'
+gem 'sidekiq'
 
 group :development do
   gem "inifile"

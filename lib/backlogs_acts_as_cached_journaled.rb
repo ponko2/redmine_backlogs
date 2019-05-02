@@ -15,4 +15,4 @@ module ActiveRecord::Acts::ActsAsRbCachedJournaled
   end
 end
 
-ActiveRecord::Base.send(:include, ActiveRecord::Acts::ActsAsRbCachedJournaled
+ActiveRecord::Base.send(:include, ActiveRecord::Acts::ActsAsRbCachedJournaled)

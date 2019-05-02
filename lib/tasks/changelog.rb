@@ -4,6 +4,8 @@ require 'rubygems'
 require 'open-uri'
 require 'json'
 
+if File.exists?('CHANGELOG.rdoc')
+
 last_version = nil
 changelog = File.open('CHANGELOG.rdoc').each{|line|
   m = line.match(/^== .* (v[0-9]+\.[0-9]+\.[0-9]+)$/)
@@ -41,3 +43,6 @@ gitlog.split("\n").each{|line|
 puts "\n"
 
 puts File.open('CHANGELOG.rdoc').read
+
+end #if File.exists?('CHANGELOG.rdoc')
+
