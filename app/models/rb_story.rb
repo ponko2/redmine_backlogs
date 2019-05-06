@@ -265,7 +265,7 @@ class RbStory < Issue
     # lft and rgt fields are handled by acts_as_nested_set
     attribs = params.select{|k,v| !['prev', 'id', 'project_id', 'lft', 'rgt'].include?(k) && RbStory.column_names.include?(k) }
 
-    return self.journalized_update_attributes attribs
+    return self.journalized_update_attributes attribs.permit!.to_hash
   end
 
   def position!(params)

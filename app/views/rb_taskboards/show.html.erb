@@ -131,7 +131,7 @@
       </td>
       <%- @statuses.each do |status| %>
       <td class="swimlane list <%= status.is_closed? ? 'closed' : '' %>" id="<%= story.id %>_<%= status.id %>" -rb-status-id="<%= status.id %>" -rb-project-id="<%= story.project.id %>">
-        <%= render_rb_task_collection(story.descendants.select{|task| (task.status_id==status.id) && task.visible?}) %>
+        <%= render :partial => "rb_tasks/task", :collection => story.descendants.select{|task| (task.status_id==status.id) && task.visible?} %>
       </td>
       <%- end %>
     </tr>

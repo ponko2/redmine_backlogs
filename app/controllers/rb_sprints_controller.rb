@@ -11,23 +11,35 @@ class RbSprintsController < RbApplicationController
   accept_api_auth :download
 
   def create
+    begin
     attribs = params.select{|k,v| k != 'id' and RbSprint.column_names.include? k }
-    attribs = Hash[*attribs.flatten]
-    @sprint = RbSprint.new(attribs)
+    #attribs = Hash[*attribs.flatten]
+    sp = RbSprint.new(:project => Project.find(params[:project_id]), :sprint_start_date => params[:sprint_start_date])
+    sp.safe_attributes=attribs
+    #sp.attributes[:project_id] = 1  #params[:project_id]
+    #sp.attributes.store("sprint_start_date", params[:sprint_start_date])
+    Rails.logger.info("params[:project_id] = " + params[:project_id].to_s)
+    Rails.logger.info("sp.attributes[:project_id] = " + sp.attributes[:project_id].to_s)
+
+    @sprint = sp
+    Rails.logger.info("sprint global attriutes made")
 
     #share the sprint according to the global setting
     default_sharing = Backlogs.setting[:sharing_new_sprint_sharingmode]
-    if default_sharing 
+    if default_sharing
       if @sprint.allowed_sharings.include? default_sharing
         @sprint.sharing = default_sharing
       end
     end
+    Rails.logger.info("sprint sharing attriutes set")
+    Rails.logger.info("sprint : " + sp.attributes.to_s)
 
-    begin
+    #begin
       @sprint.save!
+      Rails.logger.info("sprint saved")
     rescue => e
-      Rails.logger.debug e
-      Rails.logger.debug e.backtrace.join("\n")
+      Rails.logger.error e
+      Rails.logger.error e.backtrace.join("\n")
       render :text => e.message.blank? ? e.to_s : e.message, :status => 400
       return
     end
@@ -43,12 +55,12 @@ class RbSprintsController < RbApplicationController
   def update
     except = ['id', 'project_id']
     attribs = params.select{|k,v| (!except.include? k) and (RbSprint.column_names.include? k) }
-    attribs = Hash[*attribs.flatten]
+    #attribs = Hash[*attribs.flatten]
     begin
       result  = @sprint.update_attributes attribs
     rescue => e
-      Rails.logger.debug e
-      Rails.logger.debug e.backtrace.join("\n")
+      Rails.logger.error e
+      Rails.logger.error e.backtrace.join("\n")
       render :text => e.message.blank? ? e.to_s : e.message, :status => 400
       return
     end
@@ -118,7 +130,7 @@ class RbSprintsController < RbApplicationController
 
     redirect_to :controller => 'rb_master_backlogs', :action => 'show', :project_id => @project
   end
-  
+
   def close
     if @sprint.stories.open.any?
       flash[:error] = l(:error_cannot_close_sprint_with_open_stories)
@@ -127,5 +139,5 @@ class RbSprintsController < RbApplicationController
     end
     redirect_to :controller => 'rb_master_backlogs', :action => 'show', :project_id => @project
   end
- 
+
 end
