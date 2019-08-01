@@ -57,7 +57,7 @@ class RbSprintsController < RbApplicationController
     attribs = params.select{|k,v| (!except.include? k) and (RbSprint.column_names.include? k) }
     #attribs = Hash[*attribs.flatten]
     begin
-      result  = @sprint.update_attributes attribs
+      result  = @sprint.update_attributes attribs.permit!.to_h
     rescue => e
       Rails.logger.error e
       Rails.logger.error e.backtrace.join("\n")
@@ -104,10 +104,9 @@ class RbSprintsController < RbApplicationController
     end
 
     ids = []
-    status = IssueStatus.default.id
     Issue.where(fixed_version_id: @sprint.id).find_each {|issue|
       ids << issue.id.to_s
-      issue.update_attributes!(:created_on => @sprint.sprint_start_date.to_time, :status_id => status)
+      issue.update_attributes!(:created_on => @sprint.sprint_start_date.to_time, :status_id => issue.default_status)
     }
     if ids.size != 0
       ids = ids.join(',')
