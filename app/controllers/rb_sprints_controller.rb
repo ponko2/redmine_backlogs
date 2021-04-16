@@ -40,7 +40,7 @@ class RbSprintsController < RbApplicationController
     rescue => e
       Rails.logger.error e
       Rails.logger.error e.backtrace.join("\n")
-      render :text => e.message.blank? ? e.to_s : e.message, :status => 400
+      render :plain => e.message.blank? ? e.to_s : e.message, :status => 400
       return
     end
 
@@ -61,7 +61,7 @@ class RbSprintsController < RbApplicationController
     rescue => e
       Rails.logger.error e
       Rails.logger.error e.backtrace.join("\n")
-      render :text => e.message.blank? ? e.to_s : e.message, :status => 400
+      render :plain => e.message.blank? ? e.to_s : e.message, :status => 400
       return
     end
 
@@ -99,7 +99,7 @@ class RbSprintsController < RbApplicationController
 
   def reset
     unless @sprint.sprint_start_date
-      render :text => 'Sprint without start date cannot be reset', :status => 400
+      render :plain => 'Sprint without start date cannot be reset', :status => 400
       return
     end
 
