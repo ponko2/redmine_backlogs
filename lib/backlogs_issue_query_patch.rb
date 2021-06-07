@@ -90,7 +90,8 @@ module Backlogs
           }
         end
 
-        if (Redmine::VERSION::MAJOR == 3 && Redmine::VERSION::MINOR >= 4)
+        #if (Redmine::VERSION::MAJOR == 3 && Redmine::VERSION::MINOR >= 4)
+        if (Redmine::VERSION::MAJOR > 3) || (Redmine::VERSION::MAJOR == 3 && Redmine::VERSION::MINOR >= 4)
           backlogs_filters.each do |field, filter|
             options = {:type => filter[:type], :name => filter[:name], :values => filter[:values]}
             add_available_filter(field, options)
