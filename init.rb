@@ -8,10 +8,11 @@ else
   # if redmine plugins were railties:
   # object_to_prepare = config
 end
-object_to_prepare.to_prepare do
-  require_dependency 'backlogs_redmine3nestedset_mixin'
-  require_dependency 'backlogs_activerecord_mixin'
-  require_dependency 'backlogs_setup'
+zeitwerk_enabled = Rails.version > '6.0' && Rails.autoloaders.zeitwerk_enabled?
+object_to_prepare.__send__(zeitwerk_enabled ? :after_initialize : :to_prepare) do
+  require_dependency File.expand_path('../lib/backlogs/nested_set_patch', __FILE__)
+  require_dependency File.expand_path('../lib/backlogs/active_record', __FILE__)
+  require_dependency File.expand_path('../lib/backlogs', __FILE__)
   require_dependency 'issue'
 
   if Issue.const_defined? "SAFE_ATTRIBUTES"
@@ -23,27 +24,27 @@ object_to_prepare.to_prepare do
   end
 
   if (Redmine::VERSION::MAJOR > 2) || (Redmine::VERSION::MAJOR == 2 && Redmine::VERSION::MINOR >= 3)
-    require_dependency 'backlogs_time_report_patch'
+    require_dependency File.expand_path('../lib/backlogs/time_report_patch', __FILE__)
   end
-  require_dependency 'backlogs_issue_query_patch'
-  require_dependency 'backlogs_issue_patch'
-  require_dependency 'backlogs_issue_status_patch'
-  require_dependency 'backlogs_tracker_patch'
-  require_dependency 'backlogs_version_patch'
-  require_dependency 'backlogs_project_patch'
-  require_dependency 'backlogs_user_patch'
-  require_dependency 'backlogs_custom_field_patch'
+  require_dependency File.expand_path('../lib/backlogs/issue_query_patch', __FILE__)
+  require_dependency File.expand_path('../lib/backlogs/issue_patch', __FILE__)
+  require_dependency File.expand_path('../lib/backlogs/issue_status_patch', __FILE__)
+  require_dependency File.expand_path('../lib/backlogs/tracker_patch', __FILE__)
+  require_dependency File.expand_path('../lib/backlogs/version_patch', __FILE__)
+  require_dependency File.expand_path('../lib/backlogs/project_patch', __FILE__)
+  require_dependency File.expand_path('../lib/backlogs/user_patch', __FILE__)
+  require_dependency File.expand_path('../lib/backlogs/custom_field_patch', __FILE__)
 
-  require_dependency 'backlogs_my_controller_patch'
-  require_dependency 'backlogs_issues_controller_patch'
-  require_dependency 'backlogs_projects_helper_patch'
+  require_dependency File.expand_path('../lib/backlogs/my_controller_patch', __FILE__)
+  require_dependency File.expand_path('../lib/backlogs/issues_controller_patch', __FILE__)
+  require_dependency File.expand_path('../lib/backlogs_projects_helper_patch', __FILE__)
 
-  require_dependency 'backlogs_hooks'
+  require_dependency File.expand_path('../lib/backlogs_plugin/hooks', __FILE__)
 
-  require_dependency 'backlogs_merged_array'
+  require_dependency File.expand_path('../lib/backlogs/merged_array', __FILE__)
 
-  require_dependency 'backlogs_printable_cards'
-  require_dependency 'linear_regression'
+  require_dependency File.expand_path('../lib/backlogs_printable_cards', __FILE__)
+  require_dependency File.expand_path('../lib/backlogs/linear_regression', __FILE__)
 
   Redmine::AccessControl.permission(:manage_versions).actions << "rb_sprints/close_completed"
 end
@@ -53,7 +54,7 @@ Redmine::Plugin.register :redmine_backlogs do
   name 'Redmine Backlogs'
   author "friflaj,Mark Maglana,John Yani,mikoto20000,Frank Blendinger,Bo Hansen,stevel,Patrick Atamaniuk"
   description 'A plugin for agile teams'
-  version 'v1.0.6'
+  version 'v1.0.7'
 
   settings :default => {
                          :story_trackers            => nil,

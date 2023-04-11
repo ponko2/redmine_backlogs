@@ -1,5 +1,8 @@
 require 'prawn'
-require 'backlogs_printable_cards'
+
+unless Rails.version > '6.0' && Rails.autoloaders.zeitwerk_enabled? then
+  require_relative '../../lib/backlogs_printable_cards'
+end
 
 include RbCommonHelper
 

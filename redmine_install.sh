@@ -215,8 +215,6 @@ sed -i -e 's=.*gem ["'\'']test-unit["'\''].*==g' ${PATH_TO_REDMINE}/Gemfile
 # 2) tell out Gemfile that we're testing: so force test-unit 1.2.3 #done globally above by setting IN_RBL_TESTENV=true
 #capybara 2 breaks our tests. too much has changed.
 sed -i -e 's=.*gem ["'\'']capybara["'\''].*==g' ${PATH_TO_REDMINE}/Gemfile
-#nokogiri ">= 1.6.7.2" our tests. too much has changed.
-sed -i 's/"nokogiri", ">= 1.6.7.2"/"nokogiri"#, ">= 1.6.7.2"/' ${PATH_TO_REDMINE}/Gemfile
 
 # install gems
 mkdir -p vendor/bundle

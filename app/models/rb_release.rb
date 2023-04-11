@@ -1,5 +1,8 @@
 require 'date'
-require 'linear_regression'
+
+unless Rails.version > '6.0' && Rails.autoloaders.zeitwerk_enabled? then
+  require_relative '../../lib/backlogs/linear_regression'
+end
 
 class ReleaseBurndown
   def initialize(release)
